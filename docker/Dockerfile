@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-devel-ubuntu16.04
+FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 LABEL maintainer "Ilya Tabriz"
 
 # set up keyboard-configuration and install software-properties-common 
