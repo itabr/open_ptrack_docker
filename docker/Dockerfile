@@ -6,7 +6,7 @@ LABEL maintainer "Ilya Tabriz"
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && echo keyboard-configuration keyboard-configuration/layout select 'English (US)' | debconf-set-selections \
     && echo keyboard-configuration keyboard-configuration/layoutcode select 'us' | debconf-set-selections \
-    && apt-get update && apt-get install -y software-properties-common wget
+    && apt-get update && apt-get install -y software-properties-common wget catkin
 
 # section of cook book First
 RUN add-apt-repository -y ppa:danielrichter2007/grub-customizer \
