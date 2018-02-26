@@ -6,7 +6,7 @@ LABEL maintainer "Ilya Tabriz"
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && echo keyboard-configuration keyboard-configuration/layout select 'English (US)' | debconf-set-selections \
     && echo keyboard-configuration keyboard-configuration/layoutcode select 'us' | debconf-set-selections \
-    && apt-get update && apt-get install -y software-properties-common wget catkin
+    && apt-get update && apt-get install -y software-properties-common wget
 
 # section of cook book First
 RUN add-apt-repository -y ppa:danielrichter2007/grub-customizer \
@@ -26,10 +26,9 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
     && apt-get update \
     && apt-get install ros-kinetic-desktop-full python-rosinstall -y \
     && rosdep init \
-    && rosdep fix-permissions \
-    && rosdep update \
-    && echo /bin/bash -c "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc \
-    && /bin/bash -c 'source $HOME/.bashrc'
+    && rosdep update
+
+RUN /bin/bash -c "echo 'source /opt/ros/kinetic/setup.bash' >> /root/.bashrc && source /root/.bashrc"
 
 # section of cook book third 
 RUN add-apt-repository -y ppa:levi-armstrong/qt-libraries-xenial \
@@ -39,22 +38,26 @@ RUN add-apt-repository -y ppa:levi-armstrong/qt-libraries-xenial \
     && grep -rnw "exit 0" /etc/rc.local |cut -f1 -d: | tail -1 | sed -i '$ i echo 0 | tee /proc/sys/kernel/yama/ptrace_scope' /etc/rc.local
 
 # section of cook book forth
-RUN cd \
+# source /opt/ros/kinetic/setup.bash was added because we get error for catkin_make, the error is catkin_make command not found
+RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
+    && cd \
     && mkdir -p workspace/ros/src \
     && cd workspace/ros \
-    && catkin_make \
-    && echo /bin/bash -c "source /home/$USER/workspace/ros/devel/setup.bash" >> /home/$USER/.bashrc \
-    && apt-get install -y ocl-icd-opencl-dev
+    && catkin_make"
 
+RUN /bin/bash -c "echo 'source /home/$USER/workspace/ros/devel/setup.bash' >> /root/.bashrc" \
+    && apt-get install -y ocl-icd-opencl-dev
 
 # section of cook book sixth section install cuda 8 pass 
 # section of cook book seventh cudnn 5.1 pass
 
 # section of cook book eighth
-RUN echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64' >> ~/.bashrc \
-    && echo 'export PATH=$PATH:/usr/local/cuda/bin' >> ~/.bashrc
+RUN echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64' >> /root/.bashrc \
+    && echo 'export PATH=$PATH:/usr/local/cuda/bin' >> /root/.bashrc
 
 # # section of cook book ninth
+# source /opt/ros/kinetic/setup.bash was added because we get error for cmake
+
 RUN cd \
     && cd workspace \
     && git clone https://github.com/openptrack/libfreenect2 \
@@ -66,9 +69,10 @@ RUN cd \
     && ln -f -s /usr/lib/x86_64-linux-gnu/libturbojpeg.so.0.1.0 /usr/lib/x86_64-linux-gnu/libturbojpeg.so \
     && cd ../examples/protonect/ \
     && mkdir build && cd build \
+    && /bin/bash -c "source /opt/ros/kinetic/setup.bash\
     && cmake .. \
     && make \
-    && make install \
+    && make install" \
     && echo '# ATTR{product}=="Kinect2" \
 SUBSYSTEM=="usb", ATTR{idVendor}=="045e", ATTR{idProduct}=="02c4", MODE="0666" \
 SUBSYSTEM=="usb", ATTR{idVendor}=="045e", ATTR{idProduct}=="02d8", MODE="0666" \
@@ -115,10 +119,10 @@ RUN cd \
     && cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local/opencv3 -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D WITH_QT=ON -D WITH_OPENGL=ON -D ENABLE_FAST_MATH=1 -D CUDA_FAST_MATH=1 -D WITH_CUBLAS=1 -D WITH_IPP=ON -D CMAKE_LIBRARY_PATH=/usr/local/cuda/lib64/stubs .. \
     && make -j8 -l8 \
     && make install \
-    && printf '#OpenCV\nPKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opencv3/lib/pkgconfig\nexport PKG_CONFIG_PATH\n' >> ~/.bashrc \
-    && printf 'PATH=$PATH:/usr/local/opencv3/bin\nexport PATH\n' >> ~/.bashrc  \
-    && printf 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/opencv3/lib\nexport LD_LIBRARY_PATH\n' >> ~/.bashrc   \
-    && /bin/bash -c 'source $HOME/.bashrc' \
+    && printf '#OpenCV\nPKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opencv3/lib/pkgconfig\nexport PKG_CONFIG_PATH\n' >> /root/.bashrc \
+    && printf 'PATH=$PATH:/usr/local/opencv3/bin\nexport PATH\n' >> /root/.bashrc  \
+    && printf 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/opencv3/lib\nexport LD_LIBRARY_PATH\n' >> /root/.bashrc   \
+    && /bin/bash -c "source /root/.bashrc" \
     && ln -s /usr/local/opencv3/share/OpenCV/3rdparty/lib/libippicv.a /usr/local/lib/libippicv.a
 
 # section of cook book 13th
