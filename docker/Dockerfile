@@ -6,7 +6,7 @@ LABEL maintainer "Ilya Tabriz"
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && echo keyboard-configuration keyboard-configuration/layout select 'English (US)' | debconf-set-selections \
     && echo keyboard-configuration keyboard-configuration/layoutcode select 'us' | debconf-set-selections \
-    && apt-get update && apt-get install -y software-properties-common wget
+    && apt-get update && apt-get install -y software-properties-common wget udev
 
 # section of cook book First
 RUN add-apt-repository -y ppa:danielrichter2007/grub-customizer \
@@ -80,7 +80,7 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="045e", ATTR{idProduct}=="02d9", MODE="0666"' 
     && mv ~/90-kinect2.rules /etc/udev/rules.d/90-kinect2.rules
 
 # section of cook book tenth
-RUN cd /home/$USER/workspace/ros/src \
+RUN cd ~/workspace/ros/src \
     && git clone https://github.com/openptrack/iai_kinect2 \
     && cd iai_kinect2 \
     && git checkout 1604
@@ -130,5 +130,18 @@ RUN cd ~/workspace/ros/src  \
     && git clone https://bitbucket.org/mcarraro/rtpose_wrapper \
     && cd rtpose_wrapper \
     && git checkout integration-1604 \
-    && sudo apt-get --assume-yes install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libboost-all-dev libgflags-dev libgoogle-glog-dev liblmdb-dev \
+    && apt-get --assume-yes install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libboost-all-dev libgflags-dev libgoogle-glog-dev liblmdb-dev \
     && make all -j8
+
+# install oprn_prack
+RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
+    && cd ~/workspace/ros/src \
+    && git clone https://github.com/openptrack/open_ptrack_v2 open_ptrack \
+    && cd open_ptrack \
+    && apt-get install -y ros-kinetic-qt-build qml-module-qtquick-controls \
+    && source /root/.bashrc \
+    && cd ../..  \
+    && catkin_make"
+
+# configure ntp
+RUN apt-get install ntp -y
