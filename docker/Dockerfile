@@ -45,7 +45,7 @@ RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd workspace/ros \
     && catkin_make"
 
-RUN /bin/bash -c "echo 'source /home/$USER/workspace/ros/devel/setup.bash' >> /root/.bashrc" \
+RUN /bin/bash -c "echo 'source /root/workspace/ros/devel/setup.bash' >> /root/.bashrc" \
     && apt-get install -y ocl-icd-opencl-dev
 
 # section of cook book sixth section install cuda 8 pass 
@@ -142,6 +142,10 @@ RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && source /root/.bashrc \
     && cd ../..  \
     && catkin_make"
+
+
+RUN roscd yolo_detector/darknet_opt \
+    && wget https://pjreddie.com/media/files/yolo.weights
 
 # configure ntp
 RUN apt-get install ntp -y
