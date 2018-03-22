@@ -6,7 +6,8 @@ LABEL maintainer "Ilya Tabriz"
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && echo keyboard-configuration keyboard-configuration/layout select 'English (US)' | debconf-set-selections \
     && echo keyboard-configuration keyboard-configuration/layoutcode select 'us' | debconf-set-selections \
-    && apt-get update && apt-get install -y software-properties-common wget udev
+    && apt-get update \
+    && apt-get install -y --no-install-recommends software-properties-common wget udev apt-utils
 
 # section of cook book First
 RUN add-apt-repository -y ppa:danielrichter2007/grub-customizer \
@@ -133,7 +134,7 @@ RUN cd ~/workspace/ros/src  \
     && apt-get --assume-yes install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libboost-all-dev libgflags-dev libgoogle-glog-dev liblmdb-dev \
     && make all -j8
 
-# install oprn_prack
+# install open_prack
 RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd ~/workspace/ros/src \
     && git clone https://github.com/openptrack/open_ptrack_v2 open_ptrack \
@@ -143,9 +144,10 @@ RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd ../..  \
     && catkin_make"
 
-
-RUN roscd yolo_detector/darknet_opt \
-    && wget https://pjreddie.com/media/files/yolo.weights
+# section 
+RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
+    && roscd yolo_detector/darknet_opt \
+    && wget https://pjreddie.com/media/files/yolo.weights"
 
 # configure ntp
 RUN apt-get install ntp -y
