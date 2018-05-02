@@ -1,6 +1,10 @@
 FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 LABEL maintainer "Ilya Tabriz"
 
+ARG MASTER_IP="192.168.100.101"
+ARG MACHINE_IP="192.168.100.101"
+ARG MACHINE_NAME="PC1"
+
 # set up keyboard-configuration and install software-properties-common 
 # software-properties-common is needed for apt-add-repository to work
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
@@ -151,3 +155,7 @@ RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
 
 # configure ntp
 RUN apt-get install ntp -y
+
+RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> ~/.bashrc \
+    echo "export ROS_IP=$MACHINE_IP" >> ~/.bashrc \
+    echo "export ROS_PC_NAME=$MACHINE_NAME" >> ~/.bashrc
