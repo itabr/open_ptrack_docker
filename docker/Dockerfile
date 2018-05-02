@@ -156,6 +156,6 @@ RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
 # configure ntp
 RUN apt-get install ntp -y
 
-RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> ~/.bashrc \
-    echo "export ROS_IP=$MACHINE_IP" >> ~/.bashrc \
-    echo "export ROS_PC_NAME=$MACHINE_NAME" >> ~/.bashrc
+RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> /root/.bashrc \
+    echo "export ROS_IP=$MACHINE_IP" >> /root/.bashrc \
+    echo "export ROS_PC_NAME=$MACHINE_NAME" >> /root/.bashrc
