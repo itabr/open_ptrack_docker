@@ -1,7 +1,9 @@
 FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 LABEL maintainer "Ilya Tabriz"
 
-ENV MASTER_IP="192.168.100.101" MACHINE_IP="192.168.100.101" MACHINE_NAME="PC1"
+ARG MASTER_IP=192.168.100.101
+ARG MACHINE_IP=192.168.100.101
+ARG MACHINE_NAME=PC1
 
 # set up keyboard-configuration and install software-properties-common 
 # software-properties-common is needed for apt-add-repository to work
