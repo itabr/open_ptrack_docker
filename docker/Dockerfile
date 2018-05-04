@@ -1,6 +1,12 @@
 FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 LABEL maintainer "Ilya Tabriz"
 
+# nvidia-docker hooks
+# reference http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
+ENV PATH /usr/local/nvidia/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+
+# ARG to setup the network configuration
 ARG MASTER_IP=192.168.100.101
 ARG MACHINE_IP=192.168.100.101
 ARG MACHINE_NAME=PC1
@@ -157,5 +163,5 @@ RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
 RUN apt-get install ntp -y
 
 RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> /root/.bashrc \
-    echo "export ROS_IP=$MACHINE_IP" >> /root/.bashrc \
-    echo "export ROS_PC_NAME=$MACHINE_NAME" >> /root/.bashrc
+    && echo "export ROS_IP=$MACHINE_IP" >> /root/.bashrc \
+    && echo "export ROS_PC_NAME=$MACHINE_NAME" >> /root/.bashrc
