@@ -166,3 +166,5 @@ RUN apt-get install ntp -y
 RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> /root/.bashrc \
     && echo "export ROS_IP=$MACHINE_IP" >> /root/.bashrc \
     && echo "export ROS_PC_NAME=$MACHINE_NAME" >> /root/.bashrc
+
+RUN ln -s  /root/workspace/ros/src/open_ptrack /root/open_ptrack 
