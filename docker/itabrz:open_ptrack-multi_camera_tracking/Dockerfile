@@ -18,7 +18,7 @@ RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> /root/.bashrc \
     && echo "export ROS_PC_NAME=$MACHINE_NAME" >> /root/.bashrc \
     && /bin/bash -c "source /root/.bashrc"
 
-COPY ../$MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf 
+COPY $MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf 
 
 
 # docker build -t ilya/opt-docker \
