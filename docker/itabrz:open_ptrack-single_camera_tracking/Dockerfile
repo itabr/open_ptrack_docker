@@ -6,4 +6,3 @@
 FROM itabrz/open_ptrack
 LABEL maintainer "Ilya Tabriz"
 WORKDIR /root
-CMD source devel/setup.bash; roslaunch tracking single_camera_tracking_node.launch
