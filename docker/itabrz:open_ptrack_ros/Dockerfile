@@ -7,7 +7,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     && apt-get update \
     && apt-get install -y --no-install-recommends software-properties-common wget udev apt-utils
 
-# section of cook book First
 RUN add-apt-repository -y ppa:danielrichter2007/grub-customizer \
     && wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add - \
     && apt-get install -y apt-transport-https \
@@ -18,7 +17,6 @@ RUN add-apt-repository -y ppa:danielrichter2007/grub-customizer \
     && apt-get update \
     && apt-get install -y sublime-text grub-customizer exfat-fuse exfat-utils vim terminator gitg cmake-qt-gui cmake-curses-gui gparted meld cowsay fortune gimp synaptic libgoogle-glog-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev ncdu filezilla p7zip-full openssh-client openssh-server boot-repair
 
-# section of cook book second
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' \
     && apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 \
     && apt-get update \
@@ -28,14 +26,12 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
 
 RUN /bin/bash -c "echo 'source /opt/ros/kinetic/setup.bash' >> /root/.bashrc && source /root/.bashrc"
 
-# section of cook book third 
 RUN add-apt-repository -y ppa:levi-armstrong/qt-libraries-xenial \
     && add-apt-repository -y ppa:levi-armstrong/ppa \
     && apt-get update \
     && apt-get install -y qt57creator-plugin-ros \
     && grep -rnw "exit 0" /etc/rc.local |cut -f1 -d: | tail -1 | sed -i '$ i echo 0 | tee /proc/sys/kernel/yama/ptrace_scope' /etc/rc.local
 
-# section of cook book forth
 # source /opt/ros/kinetic/setup.bash was added because we get error for catkin_make, the error is catkin_make command not found
 RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd \
@@ -129,6 +125,7 @@ RUN /bin/bash -c "source /root/.bashrc\
     && apt-get --assume-yes install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libboost-all-dev libgflags-dev libgoogle-glog-dev liblmdb-dev \
     && make all -j8"
 
+# install open_prack
 RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd ~/workspace/ros/src \
     && git clone https://github.com/openptrack/open_ptrack_v2 open_ptrack \
@@ -136,13 +133,14 @@ RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && apt-get install -y ros-kinetic-qt-build qml-module-qtquick-controls \
     && source /root/.bashrc \
     && cd ../..  \
+    && LD_LIBRARY_PATH=/root/workspace/ros/devel/lib:/opt/ros/kinetic/lib:/opt/ros/kinetic/lib/x86_64-linux-gnu:/usr/local/lib/x86_64-linux-gnu:/usr/local/lib/i386-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/i386-linux-gnu:/usr/local/cuda/lib64:/usr/local/opencv3/lib \
+    && export LD_LIBRARY_PATH \
     && catkin_make"
 
 RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
     && roscd yolo_detector/darknet_opt \
     && wget https://pjreddie.com/media/files/yolo.weights"
 
-RUN ln -s  /root/workspace/ros/src/open_ptrack /root/open_ptrack 
+RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack 
 
-# configure ntp
 RUN apt-get install ntp -y
