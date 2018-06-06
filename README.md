@@ -12,4 +12,4 @@ itabrz:open_ptrack is base image for itabrz:open_ptrack-single_camera_tracking a
 itabrz:open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, itabrz:open_ptrack itself can run single camera tracking.
 
 #### itabrz:open_ptrack-multi_camera_tracking 
-itabrz:open_ptrack-multi_camera_tracking is an image for multi camera tracking, although to run single camera tracking it is not neccesserly to use this image, itabrz:open_ptrack includes all dependecies to run multi camera tracking. this image is used to set up multi camera tracking configurations.
+itabrz:open_ptrack-multi_camera_tracking is an image for multi camera tracking, although to run multi camera tracking it is not neccesserly to use this image, itabrz:open_ptrack includes all dependecies to run multi camera tracking. this image is used to set up multi camera tracking configurations.
