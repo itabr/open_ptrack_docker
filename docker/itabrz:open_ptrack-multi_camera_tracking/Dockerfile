@@ -1,3 +1,55 @@
+# change options according to the machine setup:
+
+# example :
+
+# for Master machine
+
+# docker build \
+# --build-arg MASTER_IP_ADDRESS="192.168.100.101" \
+# --build-arg MACHINE_IP_ADDRESS="192.168.100.101" \
+# --build-arg MACHINE_NAME_ADDRESS="PC1" \
+# --build-arg MACHINE_TYPE="Server" \
+# -t open_ptrack-multicamera_camera .
+
+# for rest of the nodes :
+
+# docker build \
+# --build-arg MASTER_IP_ADDRESS="192.168.100.101" \
+# --build-arg MACHINE_IP_ADDRESS="192.168.100.102" \
+# --build-arg MACHINE_NAME_ADDRESS="PC2" \
+# --build-arg MACHINE_TYPE="Client" \
+# -t open_ptrack-multicamera_camera .
+
+# run the container :
+
+# docker run --runtime=nvidia \
+# -ti \
+# -e DISPLAY \
+# -v /tmp/.X11-unix:/tmp/.X11-unix \
+# -v /home/remap/open_ptrack/opt_calibration:/root/open_ptrack/opt_calibration \
+# -v /home/remap/open_ptrack/detection:/root/open_ptrack/detection \
+# --net=host \
+# --device /dev/bus/usb:/dev/bus/usb \
+# --name opt-docker-multicamera \
+# open_ptrack-multicamera_camera /bin/bash
+
+
+# <end-users procedure>
+#   <edit camera_network.yaml paying attention to specify the enable flags>
+#   <configure and launch everything as OpenPTrack v1.0>
+#   <if you want to disable/enable other features>
+#   <re-edit camera_network.yaml>
+#   <re-do the calibration_initializer.launch phase (just that one is needed!) >	
+#   <you are ready to launch everything>
+#   <more advanced procedure>
+#   <follow end-users procedure>
+#   Launch tracker specifying the modules to launch:
+#       roslaunch tracking tracking_node.launch enable_pose:=true enable_object:=true enable_people_tracking:=true
+#   Launch each detector specifying the modules to launch:
+#       roslaunch detection detection_node_<sensor>.launch enable_pose:=true enable_object:=true enable_people_tracking:=true
+#   NOTE: the flags should be the same for both tracker and detection nodes.
+
+
 FROM itabrz/open_ptrack
 LABEL maintainer "Ilya Tabriz"
 WORKDIR /root
@@ -19,14 +71,3 @@ RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> /root/.bashrc \
     && /bin/bash -c "source /root/.bashrc"
 
 COPY $MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf 
-
-
-# docker build -t ilya/opt-docker \
-# --build-arg MASTER_IP_ADDRESS="192.168.100.101" \
-# --build-arg MACHINE_IP_ADDRESS="192.168.100.103" \
-# --build-arg MACHINE_NAME_ADDRESS="PC3"\
-# --build-arg MACHINE_TYPE="Client" .
-
-# docker run --runtime=nvidia -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=host --device /dev/bus/usb:/dev/bus/usb ilya/opt-docker
-
-# roslaunch detection detection_node_kinect_03.launch enable_pose:=true enable_object:=true enable_people_tracking:=true

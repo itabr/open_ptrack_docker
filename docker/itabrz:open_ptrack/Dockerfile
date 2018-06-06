@@ -1,3 +1,5 @@
+# docker build -t open_ptrack .
+
 FROM itabrz/opengl-opencl
 LABEL maintainer "Ilya Tabriz"
 
