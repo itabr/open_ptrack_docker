@@ -70,6 +70,23 @@ RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> /root/.bashrc \
     && echo "export ROS_PC_NAME=$MACHINE_NAME" >> /root/.bashrc \
     && /bin/bash -c "source /root/.bashrc"
 
+RUN mkdir ~/open_ptrack_config \
+    && mkdir opt_calibration \
+    && cd opt_calibration/ \
+    && mkdir launch conf \
+    && cd .. \
+    && mkdir detection \
+    && cd detection/ \
+    && mkdir conf launch cfg \
+    && cd .. \
+    && mkdir tracking \
+    && cd tracking/ \
+    && mkdir conf launch cfg \
+    && cd .. \
+    && mkdir yolo_detector \
+    && cd yolo_detector/ \
+    && mkdir launch cfg 
+
 RUN ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/launch /root/open_ptrack_config/opt_calibration/launch
 RUN ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/conf /root/open_ptrack_config/opt_calibration/conf
 RUN ln -s /root/workspace/ros/src/open_ptrack/detection/launch /root/open_ptrack_config/detection/launch
