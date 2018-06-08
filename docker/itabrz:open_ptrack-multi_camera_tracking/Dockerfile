@@ -73,29 +73,52 @@ RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> /root/.bashrc \
 RUN mkdir ~/open_ptrack_config \
     && mkdir opt_calibration \
     && cd opt_calibration/ \
-    && mkdir launch conf \
+    && ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/launch/ /root/open_ptrack_config/opt_calibration/launch \
+    && ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/conf/ /root/open_ptrack_config/opt_calibration/conf \
     && cd .. \
     && mkdir detection \
     && cd detection/ \
-    && mkdir conf launch cfg \
+    && ln -s /root/workspace/ros/src/open_ptrack/detection/launch/ /root/open_ptrack_config/detection/launch \
+    && ln -s /root/workspace/ros/src/open_ptrack/detection/conf/ /root/open_ptrack_config/detection/conf \
+    && ln -s /root/workspace/ros/src/open_ptrack/detection/cfg/ /root/open_ptrack_config/detection/cfg \
     && cd .. \
     && mkdir tracking \
     && cd tracking/ \
-    && mkdir conf launch cfg \
+    && ln -s /root/workspace/ros/src/open_ptrack/tracking/launch/ /root/open_ptrack_config/tracking/launch \
+    && ln -s /root/workspace/ros/src/open_ptrack/tracking/conf/ /root/open_ptrack_config/tracking/conf \
+    && ln -s /root/workspace/ros/src/open_ptrack/tracking/cfg/ /root/open_ptrack_config/tracking/cfg \
     && cd .. \
     && mkdir yolo_detector \
     && cd yolo_detector/ \
-    && mkdir launch cfg 
-
-RUN ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/launch /root/open_ptrack_config/opt_calibration/launch
-RUN ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/conf /root/open_ptrack_config/opt_calibration/conf
-RUN ln -s /root/workspace/ros/src/open_ptrack/detection/launch /root/open_ptrack_config/detection/launch
-RUN ln -s /root/workspace/ros/src/open_ptrack/detection/conf /root/open_ptrack_config/detection/conf
-RUN ln -s /root/workspace/ros/src/open_ptrack/detection/cfg /root/open_ptrack_config/detection/cfg
-RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/launch /root/open_ptrack_config/tracking/launch
-RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/conf /root/open_ptrack_config/tracking/conf
-RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/cfg /root/open_ptrack_config/tracking/cfg
-RUN ln -s /root/open_ptrack/yolo_detector/launch /root/open_ptrack_config/yolo_detector/launch
-RUN ln -s /root/workspace/ros/src/open_ptrack/yolo_detector/cfg/ /root/open_ptrack_config/yolo_detector/cfg
+    && ln -s /root/workspace/ros/src/open_ptrack/yolo_detector/launch/ /root/open_ptrack_config/yolo_detector/launch \
+    && ln -s /root/workspace/ros/src/open_ptrack/yolo_detector/cfg/ /root/open_ptrack_config/yolo_detector/cfg
 
 COPY $MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf
+
+# RUN ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/launch/ /root/open_ptrack_config/opt_calibration/launch
+# RUN ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/conf/ /root/open_ptrack_config/opt_calibration/conf
+# RUN ln -s /root/workspace/ros/src/open_ptrack/detection/launch/ /root/open_ptrack_config/detection/launch
+# RUN ln -s /root/workspace/ros/src/open_ptrack/detection/conf/ /root/open_ptrack_config/detection/conf
+# RUN ln -s /root/workspace/ros/src/open_ptrack/detection/cfg/ /root/open_ptrack_config/detection/cfg
+# RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/launch/ /root/open_ptrack_config/tracking/launch
+# RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/conf/ /root/open_ptrack_config/tracking/conf
+# RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/cfg/ /root/open_ptrack_config/tracking/cfg
+# RUN ln -s /root/workspace/ros/src/open_ptrack/yolo_detector/launch/ /root/open_ptrack_config/yolo_detector/launch
+# RUN ln -s /root/workspace/ros/src/open_ptrack/yolo_detector/cfg/ /root/open_ptrack_config/yolo_detector/cfg
+
+# RUN mkdir ~/open_ptrack_config \
+#     && mkdir opt_calibration \
+#     && cd opt_calibration/ \
+#     && mkdir launch conf \
+#     && cd .. \
+#     && mkdir detection \
+#     && cd detection/ \
+#     && mkdir conf launch cfg \
+#     && cd .. \
+#     && mkdir tracking \
+#     && cd tracking/ \
+#     && mkdir conf launch cfg \
+#     && cd .. \
+#     && mkdir yolo_detector \
+#     && cd yolo_detector/ \
+#     && mkdir launch cfg 
