@@ -70,4 +70,17 @@ RUN echo "export ROS_MASTER_URI=http://$MASTER_IP:11311/" >> /root/.bashrc \
     && echo "export ROS_PC_NAME=$MACHINE_NAME" >> /root/.bashrc \
     && /bin/bash -c "source /root/.bashrc"
 
-COPY $MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf 
+RUN ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/launch /root/open_ptrack_config/opt_calibration/launch
+RUN ln -s /root/workspace/ros/src/open_ptrack/opt_calibration/conf /root/open_ptrack_config/opt_calibration/conf
+RUN ln -s /root/workspace/ros/src/open_ptrack/detection/launch /root/open_ptrack_config/detection/launch
+RUN ln -s /root/workspace/ros/src/open_ptrack/detection/conf /root/open_ptrack_config/detection/conf
+RUN ln -s /root/workspace/ros/src/open_ptrack/detection/cfg /root/open_ptrack_config/detection/cfg
+RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/launch /root/open_ptrack_config/tracking/launch
+RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/conf /root/open_ptrack_config/tracking/conf
+RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/cfg /root/open_ptrack_config/tracking/cfg
+RUN ln -s /root/open_ptrack/yolo_detector/launch /root/open_ptrack/yolo_detector/launch
+RUN ln -s /root/workspace/ros/src/open_ptrack/yolo_detector/cfg/ /root/open_ptrack_config/yolo_detector/cfg
+RUN ln -s /root/workspace/ros/src/open_ptrack/yolo_detector/darknet_opt/coco.wights /root/open_ptrack_config/yolo_detector/darknet_opt/coco.wights
+RUN ln -s /etc/ntp.conf /root/etc/ntp.conf
+
+# COPY $MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf 
