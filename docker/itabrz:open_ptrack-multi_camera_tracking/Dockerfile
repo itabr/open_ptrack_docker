@@ -80,6 +80,5 @@ RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/conf /root/open_ptrack_co
 RUN ln -s /root/workspace/ros/src/open_ptrack/tracking/cfg /root/open_ptrack_config/tracking/cfg
 RUN ln -s /root/open_ptrack/yolo_detector/launch /root/open_ptrack_config/yolo_detector/launch
 RUN ln -s /root/workspace/ros/src/open_ptrack/yolo_detector/cfg/ /root/open_ptrack_config/yolo_detector/cfg
-RUN ln -s /etc/ntp.conf /root/etc/ntp.conf
 
-# COPY $MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf 
+COPY $MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf
