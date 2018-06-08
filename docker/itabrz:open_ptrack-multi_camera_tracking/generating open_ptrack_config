@@ -1,0 +1,25 @@
+   mkdir opt_calibration
+   cd opt_calibration/
+   mkdir launch conf
+   cd ..
+   mkdir detection
+   cd detection/
+   mkdir conf launch cfg
+   cd ..
+   mkdir tracking
+   cd tracking/
+   mkdir conf launch cfg
+   cd ..
+   mkdir yolo_detector
+   cd yolo_detector/
+   mkdir launch cfg
+cp -r /home/remap/workspace/ros/src/open_ptrack/opt_calibration/launch/* opt_calibration/launch
+cp -r /home/remap/workspace/ros/src/open_ptrack/opt_calibration/conf/* opt_calibration/conf
+cp -r /home/remap/workspace/ros/src/open_ptrack/detection/conf/* detection/conf
+cp -r /home/remap/workspace/ros/src/open_ptrack/detection/launch/* detection/launch
+cp -r /home/remap/workspace/ros/src/open_ptrack/detection/cfg/* detection/cfg
+cp -r /home/remap/workspace/ros/src/open_ptrack/tracking/launch/* tracking/launch
+cp -r /home/remap/workspace/ros/src/open_ptrack/tracking/conf/* tracking/conf 
+cp -r /home/remap/workspace/ros/src/open_ptrack/tracking/cfg/* tracking/cfg
+cp -r /home/remap/workspace/ros/src/open_ptrack/yolo_detector/launch/* yolo_detector/launch
+cp -r /home/remap/workspace/ros/src/open_ptrack/yolo_detector/cfg/* yolo_detector/cfg
