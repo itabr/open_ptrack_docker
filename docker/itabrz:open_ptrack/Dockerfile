@@ -147,12 +147,12 @@ RUN source /opt/ros/kinetic/setup.bash \
 RUN cd /root/ \
     && git clone https://github.com/torch/distro.git ~/torch --recursive \
     && cd ~/torch \
-    && sudo bash install-deps \
-    && sudo ./install.sh \
+    && bash install-deps \
+    && ./install.sh \
     && source ~/.bashrc \
     && cd install/bin \
-    && sudo ./luarocks install dpnn \
-    && sudo ./luarocks install csvigo
+    && ./luarocks install dpnn \
+    && ./luarocks install csvigo
 
 RUN roscd yolo_detector/darknet_opt \
     && wget https://pjreddie.com/media/files/yolo.weights \
