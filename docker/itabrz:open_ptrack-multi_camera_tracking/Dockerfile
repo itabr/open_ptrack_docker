@@ -122,17 +122,17 @@ RUN mkdir /root/open_ptrack_config \
     && cp -r /root/workspace/ros/src/open_ptrack/yolo_detector/launch/* yolo_detector/launch
 
 RUN rm -rf /root/workspace/ros/src/open_ptrack/opt_calibration/launch \
-    && ln /root/open_ptrack_config/opt_calibration/launch /root/workspace/ros/src/open_ptrack/opt_calibration/launch \
+    && ln /root/open_ptrack_config/opt_calibration/launch/* /root/workspace/ros/src/open_ptrack/opt_calibration/launch/* \
     && rm -rf /root/workspace/ros/src/open_ptrack/opt_calibration/conf \
-    && ln /root/open_ptrack_config/opt_calibration/conf /root/workspace/ros/src/open_ptrack/opt_calibration/conf \    
+    && ln /root/open_ptrack_config/opt_calibration/conf/* /root/workspace/ros/src/open_ptrack/opt_calibration/conf/* \    
     && rm -rf /root/workspace/ros/src/open_ptrack/detection/conf \
-    && ln /root/open_ptrack_config/detection/conf /root/workspace/ros/src/open_ptrack/detection/conf \
+    && ln /root/open_ptrack_config/detection/conf/* /root/workspace/ros/src/open_ptrack/detection/conf/* \
     && rm -rf /root/workspace/ros/src/open_ptrack/detection/launch \
-    && ln /root/open_ptrack_config/detection/launch /root/workspace/ros/src/open_ptrack/detection/launch \
+    && ln /root/open_ptrack_config/detection/launch/* /root/workspace/ros/src/open_ptrack/detection/launch/* \
     && rm -rf /root/workspace/ros/src/open_ptrack/tracking/launch \
-    && ln /root/open_ptrack_config/tracking/launch /root/workspace/ros/src/open_ptrack/tracking/launch \
+    && ln /root/open_ptrack_config/tracking/launch/* /root/workspace/ros/src/open_ptrack/tracking/launch/* \
     && rm -rf /root/workspace/ros/src/open_ptrack/tracking/conf \
-    && ln /root/open_ptrack_config/tracking/conf /root/workspace/ros/src/open_ptrack/tracking/conf \
+    && ln /root/open_ptrack_config/tracking/conf/* /root/workspace/ros/src/open_ptrack/tracking/conf/* \
     && rm -rf /root/workspace/ros/src/open_ptrack/yolo_detector/launch \
-    && ln /root/open_ptrack_config/yolo_detector/launch /root/workspace/ros/src/open_ptrack/yolo_detector/launch
+    && ln /root/open_ptrack_config/yolo_detector/launch/* /root/workspace/ros/src/open_ptrack/yolo_detector/launch/*
 
