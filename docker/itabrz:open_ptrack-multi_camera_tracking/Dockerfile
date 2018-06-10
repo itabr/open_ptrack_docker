@@ -10,9 +10,9 @@
 
 # for rest of the nodes :
 
-# docker build \
-# --build-arg MACHINE_TYPE="Client" \
-# -t open_ptrack-multicamera_camera .
+docker build \
+--build-arg MACHINE_TYPE="Client" \
+-t open_ptrack-multicamera_camera .
 
 # run the container :
 
@@ -37,15 +37,18 @@
 # open_ptrack-multicamera_camera /bin/bash
 
 
-# docker run --runtime=nvidia \
-# -ti \
-# -e DISPLAY \
-# -v /tmp/.X11-unix:/tmp/.X11-unix \
-# --mount type=bind,source=$(pwd)/open_ptrack_config,destination=/root/open_ptrack_config \
-# --net=host \
-# --device /dev/bus/usb:/dev/bus/usb \
-# --name opt-docker-multicamera \
-# open_ptrack-multicamera_camera /bin/bash
+docker run --runtime=nvidia \
+-ti \
+--rm \
+-e DISPLAY \
+-e "ROS_MASTER_URI=http://192.168.100.101:11311/" \
+-e "ROS_IP=192.168.100.102" \
+-e "ROS_PC_NAME=PC2" \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+--net=host \
+--device /dev/bus/usb:/dev/bus/usb \
+--name opt-docker-multicamera \
+open_ptrack-multicamera_camera /bin/bash
 
 # docker run --runtime=nvidia \
 # -ti \
@@ -100,26 +103,23 @@ RUN mkdir /root/open_ptrack_config \
     && cd .. \
     && mkdir detection \
     && cd detection/ \
-    && mkdir conf launch cfg \
+    && mkdir conf launch \
     && cd .. \
     && mkdir tracking \
     && cd tracking/ \
-    && mkdir conf launch cfg \
+    && mkdir conf launch \
     && cd .. \
     && mkdir yolo_detector \
     && cd yolo_detector/ \
-    && mkdir launch cfg \
+    && mkdir launch \
     && cd .. \
     && cp -r /root/workspace/ros/src/open_ptrack/opt_calibration/launch/* opt_calibration/launch \
     && cp -r /root/workspace/ros/src/open_ptrack/opt_calibration/conf/* opt_calibration/conf \
     && cp -r /root/workspace/ros/src/open_ptrack/detection/conf/* detection/conf \
     && cp -r /root/workspace/ros/src/open_ptrack/detection/launch/* detection/launch \
-    && cp -r /root/workspace/ros/src/open_ptrack/detection/cfg/* detection/cfg \
     && cp -r /root/workspace/ros/src/open_ptrack/tracking/launch/* tracking/launch \
     && cp -r /root/workspace/ros/src/open_ptrack/tracking/conf/* tracking/conf  \
-    && cp -r /root/workspace/ros/src/open_ptrack/tracking/cfg/* tracking/cfg \
     && cp -r /root/workspace/ros/src/open_ptrack/yolo_detector/launch/* yolo_detector/launch \
-    && cp -r /root/workspace/ros/src/open_ptrack/yolo_detector/cfg/* yolo_detector/cfg
 
 RUN rm -rf /root/workspace/ros/src/open_ptrack/opt_calibration/launch \
     && ln -s /root/open_ptrack_config/opt_calibration/launch /root/workspace/ros/src/open_ptrack/opt_calibration/ \
@@ -129,17 +129,10 @@ RUN rm -rf /root/workspace/ros/src/open_ptrack/opt_calibration/launch \
     && ln -s /root/open_ptrack_config/detection/conf /root/workspace/ros/src/open_ptrack/detection/ \
     && rm -rf /root/workspace/ros/src/open_ptrack/detection/launch \
     && ln -s /root/open_ptrack_config/detection/launch /root/workspace/ros/src/open_ptrack/detection/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/detection/cfg \
-    && ln -s /root/open_ptrack_config/detection/cfg /root/workspace/ros/src/open_ptrack/detection/ \
     && rm -rf /root/workspace/ros/src/open_ptrack/tracking/launch \
     && ln -s /root/open_ptrack_config/tracking/launch /root/workspace/ros/src/open_ptrack/tracking/ \
     && rm -rf /root/workspace/ros/src/open_ptrack/tracking/conf \
     && ln -s /root/open_ptrack_config/tracking/conf /root/workspace/ros/src/open_ptrack/tracking/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/tracking/cfg \
-    && ln -s /root/open_ptrack_config/tracking/cfg /root/workspace/ros/src/open_ptrack/tracking/ \
     && rm -rf /root/workspace/ros/src/open_ptrack/yolo_detector/launch \
-    && ln -s /root/open_ptrack_config/yolo_detector/launch /root/workspace/ros/src/open_ptrack/yolo_detector/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/yolo_detector/cfg \
-    && ln -s /root/open_ptrack_config/yolo_detector/cfg /root/workspace/ros/src/open_ptrack/yolo_detector/
-
+    && ln -s /root/open_ptrack_config/yolo_detector/launch /root/workspace/ros/src/open_ptrack/yolo_detector/
 
