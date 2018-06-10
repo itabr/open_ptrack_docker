@@ -127,89 +127,23 @@ RUN /bin/bash -c "source /root/.bashrc\
     && apt-get --assume-yes install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libboost-all-dev libgflags-dev libgoogle-glog-dev liblmdb-dev \
     && make all -j8"
 
-
-SHELL ["/bin/bash", "-c"]
-
 # install open_prack
-RUN source /opt/ros/kinetic/setup.bash \
+RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd ~/workspace/ros/src \
     && git clone https://github.com/openptrack/open_ptrack_v2 open_ptrack \
     && cd open_ptrack \
     && git checkout openptrack-TV3 \
-    && git pull \
     && apt-get install -y ros-kinetic-qt-build qml-module-qtquick-controls \
     && source /root/.bashrc \
     && cd ../..  \
     && LD_LIBRARY_PATH=/root/workspace/ros/devel/lib:/opt/ros/kinetic/lib:/opt/ros/kinetic/lib/x86_64-linux-gnu:/usr/local/lib/x86_64-linux-gnu:/usr/local/lib/i386-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/i386-linux-gnu:/usr/local/cuda/lib64:/usr/local/opencv3/lib \
     && export LD_LIBRARY_PATH \
-    && catkin_make
+    && catkin_make"
 
-RUN cd /root/ \
-    && git clone https://github.com/torch/distro.git ~/torch --recursive \
-    && cd ~/torch \
-    && bash install-deps \
-    && ./install.sh \
-    && source ~/.bashrc \
-    && cd install/bin \
-    && ./luarocks install dpnn \
-    && ./luarocks install csvigo
-
-RUN roscd yolo_detector/darknet_opt \
-    && wget https://pjreddie.com/media/files/yolo.weights \
-    && cp yolo.weights coco.weights
+RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
+    && roscd yolo_detector/darknet_opt \
+    && wget https://pjreddie.com/media/files/yolo.weights"
 
 RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack 
 
 RUN apt-get install ntp -y
-
-RUN mkdir /root/open_ptrack_config \
-    && cd /root/open_ptrack_config \
-    && mkdir opt_calibration \
-    && cd opt_calibration/ \
-    && mkdir launch conf \
-    && cd .. \
-    && mkdir detection \
-    && cd detection/ \
-    && mkdir conf launch cfg \
-    && cd .. \
-    && mkdir tracking \
-    && cd tracking/ \
-    && mkdir conf launch cfg \
-    && cd .. \
-    && mkdir yolo_detector \
-    && cd yolo_detector/ \
-    && mkdir launch cfg \
-    && cd .. \
-    && cp -r /root/workspace/ros/src/open_ptrack/opt_calibration/launch/* opt_calibration/launch \
-    && cp -r /root/workspace/ros/src/open_ptrack/opt_calibration/conf/* opt_calibration/conf \
-    && cp -r /root/workspace/ros/src/open_ptrack/detection/conf/* detection/conf \
-    && cp -r /root/workspace/ros/src/open_ptrack/detection/launch/* detection/launch \
-    && cp -r /root/workspace/ros/src/open_ptrack/detection/cfg/* detection/cfg \
-    && cp -r /root/workspace/ros/src/open_ptrack/tracking/launch/* tracking/launch \
-    && cp -r /root/workspace/ros/src/open_ptrack/tracking/conf/* tracking/conf  \
-    && cp -r /root/workspace/ros/src/open_ptrack/tracking/cfg/* tracking/cfg \
-    && cp -r /root/workspace/ros/src/open_ptrack/yolo_detector/launch/* yolo_detector/launch \
-    && cp -r /root/workspace/ros/src/open_ptrack/yolo_detector/cfg/* yolo_detector/cfg
-
-RUN rm -rf /root/workspace/ros/src/open_ptrack/opt_calibration/launch \
-    && ln -s /root/open_ptrack_config/opt_calibration/launch /root/workspace/ros/src/open_ptrack/opt_calibration/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/opt_calibration/conf \
-    && ln -s /root/open_ptrack_config/opt_calibration/conf /root/workspace/ros/src/open_ptrack/opt_calibration/ \    
-    && rm -rf /root/workspace/ros/src/open_ptrack/detection/conf \
-    && ln -s /root/open_ptrack_config/detection/conf /root/workspace/ros/src/open_ptrack/detection/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/detection/launch \
-    && ln -s /root/open_ptrack_config/detection/launch /root/workspace/ros/src/open_ptrack/detection/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/detection/cfg \
-    && ln -s /root/open_ptrack_config/detection/cfg /root/workspace/ros/src/open_ptrack/detection/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/tracking/launch \
-    && ln -s /root/open_ptrack_config/tracking/launch /root/workspace/ros/src/open_ptrack/tracking/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/tracking/conf \
-    && ln -s /root/open_ptrack_config/tracking/conf /root/workspace/ros/src/open_ptrack/tracking/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/tracking/cfg \
-    && ln -s /root/open_ptrack_config/tracking/cfg /root/workspace/ros/src/open_ptrack/tracking/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/yolo_detector/launch \
-    && ln -s /root/open_ptrack_config/yolo_detector/launch /root/workspace/ros/src/open_ptrack/yolo_detector/ \
-    && rm -rf /root/workspace/ros/src/open_ptrack/yolo_detector/cfg \
-    && ln -s /root/open_ptrack_config/yolo_detector/cfg /root/workspace/ros/src/open_ptrack/yolo_detector/
-
-
