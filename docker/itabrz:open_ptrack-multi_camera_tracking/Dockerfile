@@ -10,9 +10,9 @@
 
 # for rest of the nodes :
 
-docker build \
---build-arg MACHINE_TYPE="Client" \
--t open_ptrack-multicamera_camera .
+# docker build \
+# --build-arg MACHINE_TYPE="Client" \
+# -t open_ptrack-multicamera_camera .
 
 # run the container :
 
@@ -37,18 +37,18 @@ docker build \
 # open_ptrack-multicamera_camera /bin/bash
 
 
-docker run --runtime=nvidia \
--ti \
---rm \
--e DISPLAY \
--e "ROS_MASTER_URI=http://192.168.100.101:11311/" \
--e "ROS_IP=192.168.100.102" \
--e "ROS_PC_NAME=PC2" \
--v /tmp/.X11-unix:/tmp/.X11-unix \
---net=host \
---device /dev/bus/usb:/dev/bus/usb \
---name opt-docker-multicamera \
-open_ptrack-multicamera_camera /bin/bash
+# docker run --runtime=nvidia \
+# -ti \
+# --rm \
+# -e DISPLAY \
+# -e "ROS_MASTER_URI=http://192.168.100.101:11311/" \
+# -e "ROS_IP=192.168.100.102" \
+# -e "ROS_PC_NAME=PC2" \
+# -v /tmp/.X11-unix:/tmp/.X11-unix \
+# --net=host \
+# --device /dev/bus/usb:/dev/bus/usb \
+# --name opt-docker-multicamera \
+# open_ptrack-multicamera_camera /bin/bash
 
 # docker run --runtime=nvidia \
 # -ti \
