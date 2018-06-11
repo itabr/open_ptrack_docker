@@ -32,7 +32,6 @@
   <include file="$(find pose_recognition)/launch/pose_recognition.launch" />
   </group>
 
-  <group if="$(arg enable_object)">
   <!-- Object Tracking -->
   <group if="$(arg enable_object)">
     <include file="$(find yolo_detector)/launch/detect_yolo_object_kinect_network.launch">
