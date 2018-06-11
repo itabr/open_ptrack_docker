@@ -4,22 +4,18 @@
 # run the container :
 
 # option 1 :
-
+# start the contianer: 
 # docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --mount type=bind,source=$(pwd)/open_ptrack_config/detection/launch/,destination=/root/workspace/ros/src/open_ptrack/detection/launch/ --mount type=bind,source=$(pwd)/open_ptrack_config/detection/conf/,destination=/root/workspace/ros/src/open_ptrack/detection/conf/ --mount type=bind,source=$(pwd)/open_ptrack_config/tracking/launch/,destination=/root/workspace/ros/src/open_ptrack/tracking/launch/ --mount type=bind,source=$(pwd)/open_ptrack_config/tracking/conf/,destination=/root/workspace/ros/src/open_ptrack/tracking/conf/ --mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ --net=host --device /dev/bus/usb:/dev/bus/usb --name opt-docker-singlecamera itabrz/open_ptrack-single_camera_tracking /bin/bash
-
 
 # option 2 (requires absolute path for launch files):
 
+# uncomment line 31 - 60
+# again run : docker build -t itabrz/open_ptrack-single_camera_tracking .
+# start the contianer: 
 # docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --mount type=bind,source=$(pwd)/open_ptrack_config,target=/root/open_ptrack_config --net=host --device /dev/bus/usb:/dev/bus/usb --name opt-singlecamera itabrz/open_ptrack-single_camera_tracking /bin/bash
 
-# docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=host --device /dev/bus/usb:/dev/bus/usb itabrz/open_ptrack /bin/bash
-
-
-
-# open new window:
-
+# to open new terminal window for container run : 
 # docker exec  -ti -e DISPLAY opt-singlecamera bash
-
 
 # run tracking for single camera
 # <all modules activated>
