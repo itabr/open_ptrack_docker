@@ -32,14 +32,14 @@
   <include file="$(find pose_recognition)/launch/pose_recognition.launch" />
   </group>
 
-  <!-- Object Tracking -->
+   <!-- Object Detection node -->
   <group if="$(arg enable_object)">
     <include file="$(find yolo_detector)/launch/detect_yolo_object_kinect_network.launch">
       <arg name="sensor_name"             value="$(arg sensor_name)" />
     </include>
-  </group>
-  
 
+  </group>
+ 
   <!-- UDP messaging -->
   <include file="$(find opt_utils)/launch/ros2udp_converter.launch"/>
 
