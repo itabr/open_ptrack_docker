@@ -59,7 +59,7 @@ ENV ROS_PC_NAME = PC1
 
 ARG MACHINE_TYPE=Server
 
-COPY $MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf
+COPY ./open_ptrack_config/$MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf
 
 
 # RUN mkdir /root/open_ptrack_config \
