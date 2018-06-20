@@ -1,14 +1,16 @@
-# docker build -t itabrz/open_ptrack .
+# docker build -t itabrz/open_ptrack --build-arg branch=iss21 .
 
 FROM itabrz/opt-dep
 LABEL maintainer "Ilya Tabriz"
+
+ARG branch=master
 
 # install open_prack
 RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd ~/workspace/ros/src \
     && git clone https://github.com/openptrack/open_ptrack_v2 open_ptrack \
     && cd open_ptrack \
-    && git checkout iss21 \
+    && git checkout $branch \
     && apt-get install -y ros-kinetic-qt-build qml-module-qtquick-controls \
     && source /root/.bashrc \
     && cd ../..  \
