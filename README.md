@@ -8,7 +8,7 @@ itabrz:opengl-opencl is a base image for itabrz:open_ptrack which enables opencl
 - ### itabrz-opt-dep
 itabrz-opt-dep is base image for itabrz-open_ptrack and includes all the dependencies requried for open_ptrack. this image is based on nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04, this image contains all the installation process for open_ptrack and it is based on these instructions: [https://docs.google.com/document/d/1iagy-zU1cbV92YQI6EJhieM5-09BGrVsVmmz0QjK0XA/edit]
 
-** Instrucitons: **
+**Instrucitons:**
 build the image :
 ```bash
 docker build -t itabrz/opt-dep
@@ -17,7 +17,7 @@ docker build -t itabrz/opt-dep
 - ### itabrz-open_ptrack
 itabrz_open_ptrack is base image for itabrz:open_ptrack-single_camera_tracking and itabrz:open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
 
-** Instrucitons: **
+**Instrucitons:**
 build the image :
 ```bash
 docker build -t itabrz/open_ptrack
@@ -30,7 +30,7 @@ docker build -t itabrz/open_ptrack --build-arg branch=iss21 .
 - ### itabrz-open_ptrack-single_camera_tracking 
 itabrz-open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, itabrz:open_ptrack itself can run single camera tracking.
 
-** Instrucitons: **
+**Instrucitons:**
 ```bash
 xhost +
 ```
@@ -57,7 +57,8 @@ docker run --runtime=nvidia \
 - #### itabrz-open_ptrack-multi_camera_tracking 
 itabrz-open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to setup the configurations required for multi camera tracking.
 
-** Instrucitons: **
+**Instrucitons:**
+
 ```bash
 xhost +
 ```
