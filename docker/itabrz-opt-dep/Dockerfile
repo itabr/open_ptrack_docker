@@ -1,8 +1,14 @@
 # docker build -t itabrz/opt-dep .
 
-FROM itabrz/opengl-opencl
+FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04
+
 LABEL maintainer "Ilya Tabriz"
 
+ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES},display,compute,utility
+RUN apt-get update && apt-get install -y --no-install-recommends mesa-utils && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends         ocl-icd-libopencl1         clinfo &&     rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /etc/OpenCL/vendors && echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd
+ENV NVIDIA_VISIBLE_DEVICES=all
 RUN  echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections     && echo keyboard-configuration keyboard-configuration/layout select 'English (US)' | debconf-set-selections     && echo keyboard-configuration keyboard-configuration/layoutcode select 'us' | debconf-set-selections     && apt-get update     && apt-get install -y --no-install-recommends software-properties-common wget udev apt-utils 
 RUN  add-apt-repository -y ppa:danielrichter2007/grub-customizer     && wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -     && apt-get install --no-install-recommends -y apt-transport-https      && echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list     && apt-add-repository -y ppa:obsproject/obs-studio     && apt-add-repository -y ppa:graphics-drivers/ppa     && add-apt-repository -y ppa:yannubuntu/boot-repair     && apt-get update     && apt-get install --no-install-recommends -y sublime-text grub-customizer exfat-fuse exfat-utils vim terminator gitg cmake-qt-gui cmake-curses-gui gparted meld cowsay fortune gimp synaptic libgoogle-glog-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev ncdu filezilla p7zip-full openssh-client openssh-server boot-repair 
 RUN  sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'     && apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116     && apt-get update     && apt-get install --no-install-recommends ros-kinetic-desktop-full python-rosinstall -y     && rosdep init     && rosdep update
