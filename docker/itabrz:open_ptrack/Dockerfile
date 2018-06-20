@@ -132,7 +132,7 @@ RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd ~/workspace/ros/src \
     && git clone https://github.com/openptrack/open_ptrack_v2 open_ptrack \
     && cd open_ptrack \
-    && git checkout openptrack-TV3 \
+    && git checkout iss21 \
     && apt-get install -y ros-kinetic-qt-build qml-module-qtquick-controls \
     && source /root/.bashrc \
     && cd ../..  \
