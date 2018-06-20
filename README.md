@@ -57,7 +57,7 @@ docker run --runtime=nvidia \
 - #### itabrz-open_ptrack-multi_camera_tracking 
 itabrz-open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to setup the configurations required for multi camera tracking.
 
-####Instrucitons: 
+####Instrucitons:
 ```bash
 xhost +
 ```
