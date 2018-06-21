@@ -76,7 +76,7 @@ sudo docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 
 
 
-# open_ptrack
+# build open_ptrack images
 
 docker folder contains:
 
@@ -86,7 +86,7 @@ itabrz-opt-dep is base image for itabrz-open_ptrack and includes all the depende
 **Instructions:**
 build the image :
 ```bash
-docker build -t itabrz/opt-dep
+docker build -t itabrz/opt-dep .
 ```
 
 - ### itabrz-open_ptrack
@@ -95,7 +95,7 @@ itabrz_open_ptrack is base image for itabrz:open_ptrack-single_camera_tracking a
 **Instructions:**
 build the image :
 ```bash
-docker build -t itabrz/open_ptrack
+docker build -t itabrz/open_ptrack .
 ```
 or to change a branch
 ```bash
@@ -141,7 +141,8 @@ build the image
 MACHINE_TYPE can be either Server or Client :
 For master machine :
 ```bash
-docker build --build-arg MACHINE_TYPE="Server" -t open_ptrack-multicamera_camera .```
+docker build --build-arg MACHINE_TYPE="Server" -t open_ptrack-multicamera_camera .
+```
 For other nodes :
 ```bash
  docker build --build-arg MACHINE_TYPE="Client" -t open_ptrack-multicamera_camera .
