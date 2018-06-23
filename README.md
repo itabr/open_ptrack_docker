@@ -1,17 +1,13 @@
 # OpenPTrack docker
 
-One Paragraph of project description goes here
-
 OpenPTrack is an open source project to create a scalable, multi-camera solution for person tracking.
 It enables many people to be tracked over large areas in real time.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-
-What things you need to install the software and how to install them
 
 Docker and nvidia-docker are required to be installed before using open_ptrack docker: 
 
