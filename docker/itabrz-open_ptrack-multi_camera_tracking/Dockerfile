@@ -50,7 +50,7 @@
 
 
 FROM itabrz/open_ptrack
-LABEL maintainer "Ilya Tabriz"
+LABEL maintainer "Samir Tabriz"
 WORKDIR /root
 
 ENV ROS_MASTER_URI = http://192.168.100.101:11311/

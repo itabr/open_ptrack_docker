@@ -1,12 +1,21 @@
-# open_ptrack_docker
+# OpenPTrack docker
 
-## Required Componenets
+One Paragraph of project description goes here
 
-Two componenets required to be installed before using open_ptrack docker: 
-1. Docker 
-2. nvidia-docker
+OpenPTrack is an open source project to create a scalable, multi-camera solution for person tracking.
+It enables many people to be tracked over large areas in real time.
 
-## Install Docker
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+What things you need to install the software and how to install them
+
+Docker and nvidia-docker are required to be installed before using open_ptrack docker: 
+
+#### Install Docker
 
 for updated version look at the Docker official instructions
 
@@ -38,7 +47,7 @@ sudo docker run hello-world
 ```
 
 
-## Install nvidia-docker 2 
+#### Install nvidia-docker 2 
 
 for updated version look at the Nvidia Docker official instructions
 
@@ -75,10 +84,12 @@ sudo docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 ```
 
 
+### Installing
 
-# build open_ptrack images
+next you need to build OpenPtrack images:
 
-docker folder contains:
+docker folder contains : itabrz-opt-dep, itabrz-open_ptrack, itabrz-open_ptrack-single_camera_tracking, itabrz-open_ptrack-multi_camera_tracking
+
 
 - ### itabrz-opt-dep
 itabrz-opt-dep is base image for itabrz-open_ptrack and includes all the dependencies requried for open_ptrack. this image is based on nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04, this image contains all the installation process for open_ptrack and it is based on these instructions: [https://docs.google.com/document/d/1iagy-zU1cbV92YQI6EJhieM5-09BGrVsVmmz0QjK0XA/edit]
@@ -166,10 +177,24 @@ docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix
 open_ptrack-multicamera_camera bash
 ```
 
-### general information
 
-**open contaier in an other window :**
 
+## Deployment
+
+you can use bellow command to Run a command in a running container:
+```
 docker exec  -ti -e DISPLAY ***container-name*** bash
+```
 
 
+## Built With
+
+* [Docker](https://www.docker.com/) - Container platform provider
+* [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) - NVIDIA container runtime for Docker
+
+
+## Authors
+
+* **Samir Tabriz** - *Initial work* - [itabr](https://github.com/itabr/)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.

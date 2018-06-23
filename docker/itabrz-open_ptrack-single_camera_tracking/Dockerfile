@@ -25,7 +25,7 @@
 # roslaunch tracking single_camera_tracking_node.launch enable_pose:=false enable_people_tracking:=true enable_object:=true
 
 FROM itabrz/open_ptrack
-LABEL maintainer "Ilya Tabriz"
+LABEL maintainer "Samir Tabriz"
 WORKDIR /root
 
 # RUN mkdir /root/open_ptrack_config \

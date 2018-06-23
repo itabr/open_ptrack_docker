@@ -1,7 +1,7 @@
 # docker build -t itabrz/open_ptrack --build-arg branch=iss21 .
 
 FROM itabrz/opt-dep
-LABEL maintainer "Ilya Tabriz"
+LABEL maintainer "Samir Tabriz"
 
 ARG branch=master
 

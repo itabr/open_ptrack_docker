@@ -2,7 +2,7 @@
 
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04
 
-LABEL maintainer "Ilya Tabriz"
+LABEL maintainer "Samir Tabriz"
 
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES},display,compute,utility
 
