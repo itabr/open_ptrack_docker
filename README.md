@@ -82,9 +82,9 @@ sudo docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 
 ### Installing
 
-next you need to build OpenPtrack images:
+Next you need to build OpenPtrack images:
 
-docker folder contains : itabrz-opt-dep, itabrz-open_ptrack, itabrz-open_ptrack-single_camera_tracking, itabrz-open_ptrack-multi_camera_tracking
+This project contains four different images : itabrz-opt-dep, itabrz-open_ptrack, itabrz-open_ptrack-single_camera_tracking, itabrz-open_ptrack-multi_camera_tracking
 
 
 - ### itabrz-opt-dep
