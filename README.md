@@ -203,5 +203,3 @@ docker exec  -ti -e DISPLAY container-name bash
 ## Authors
 
 * **Samir Tabriz** - *Initial work* - [itabr](https://github.com/itabr/)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
