@@ -9,11 +9,11 @@ The following instructions will get you a copy of the project up and running on 
 
 ### Prerequisites
 
-Docker and nvidia-docker are required to be installed before using open_ptrack docker: 
+Docker, nvidia driver, nvidia-docker are required to be installed before using open_ptrack docker: 
 
-#### Install Docker
+#### Install Docker 
 
-for updated version look at the Docker official instructions
+for updated version look at the Docker official instructions [here](https://docs.docker.com/install/)
 
 ```
 sudo apt-get install \
@@ -41,11 +41,16 @@ apt-cache madison docker-ce
 ```
 sudo docker run hello-world
 ```
+#### Install nvidia driver
 
+```
+sudo apt-get update
+sudo apt-get install nvidia-384
+```
 
 #### Install nvidia-docker 2 
 
-for updated version look at the Nvidia Docker official instructions
+for updated version look at the Nvidia Docker official instructions [here](https://github.com/NVIDIA/nvidia-docker)
 
 ```
 wget https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.0/nvidia-docker_1.0.0-1_amd64.deb
@@ -93,6 +98,7 @@ itabrz-opt-dep is base image for itabrz-open_ptrack and includes all the depende
 **Instructions:**
 build the image :
 ```bash
+cd itabrz-opt-dep
 docker build -t itabrz/opt-dep .
 ```
 
@@ -102,10 +108,12 @@ itabrz_open_ptrack is base image for itabrz:open_ptrack-single_camera_tracking a
 **Instructions:**
 build the image :
 ```bash
+cd itabrz-open_ptrack
 docker build -t itabrz/open_ptrack .
 ```
 or to change a branch
 ```bash
+cd itabrz-open_ptrack
 docker build -t itabrz/open_ptrack --build-arg branch=iss21 .
 ```
 
@@ -118,6 +126,7 @@ xhost +
 ```
 build the image :
 ```bash
+cd itabrz-open_ptrack-single_camera_tracking
 docker build -t itabrz/open_ptrack-single_camera_tracking .
 ```
 in the same folder run the container 
@@ -145,9 +154,12 @@ itabrz-open_ptrack-multi_camera_tracking is an image for multi camera tracking, 
 xhost +
 ```
 build the image 
-MACHINE_TYPE can be either Server or Client :
+
+valid values for MACHINE_TYPE is Server or Client :
+
 For master machine :
 ```bash
+cd itabrz-open_ptrack-multi_camera_tracking
 docker build --build-arg MACHINE_TYPE="Server" -t open_ptrack-multicamera_camera .
 ```
 For other nodes :
@@ -155,7 +167,7 @@ For other nodes :
  docker build --build-arg MACHINE_TYPE="Client" -t open_ptrack-multicamera_camera .
 ```
 in the same folder run the container, you need to change the ROS_MASTER_URI and 
-ROS_IP, ROS_PC_NAME per machine :
+ROS_IP, ROS_PC_NAME according to your configuration :
 ```bash
 docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
 --mount type=bind,source=$(pwd)/open_ptrack_config/opt_calibration/launch/,destination=/root/workspace/ros/src/open_ptrack/opt_calibration/launch/ \
@@ -174,12 +186,11 @@ open_ptrack-multicamera_camera bash
 ```
 
 
-
 ## Deployment
 
 you can use bellow command to Run a command in a running container:
 ```
-docker exec  -ti -e DISPLAY ***container-name*** bash
+docker exec  -ti -e DISPLAY container-name bash
 ```
 
 
