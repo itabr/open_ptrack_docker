@@ -5,13 +5,13 @@ It enables many people to be tracked over large areas in real time.
 
 ## Getting Started
 
-The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See Installation for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
 Docker, nvidia driver, nvidia-docker are required to be installed before using open_ptrack docker: 
 
-#### Install Docker 
+#### Install Docker
 
 for updated version look at the Docker official instructions [here](https://docs.docker.com/install/)
 
@@ -84,7 +84,7 @@ sudo docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 
 Next you need to build OpenPtrack images:
 
-This project contains four different images : itabrz-open_ptrack-dep, itabrz-open_ptrack, itabrz-open_ptrack-single_camera_tracking, itabrz-open_ptrack-multi_camera_tracking
+This project contains four different images : open_ptrack-dep, open_ptrack, open_ptrack-single_camera_tracking, open_ptrack-multi_camera_tracking
 
 Clone the repository: 
 ```
@@ -92,33 +92,33 @@ https://github.com/itabr/open_ptrack_docker.git
 cd open_ptrack_docker
 ```
 
-* ### itabrz-open_ptrack-dep
-itabrz-open_ptrack-dep is base image for itabrz-open_ptrack and includes all the dependencies requried for open_ptrack. this image is based on nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04, this image contains all the installation process for open_ptrack and it is based on the instructions [here](https://docs.google.com/document/d/1iagy-zU1cbV92YQI6EJhieM5-09BGrVsVmmz0QjK0XA/edit)
+* ### open_ptrack-dep
+open_ptrack-dep is base image for open_ptrack and includes all the dependencies requried for open_ptrack. this image is based on nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04, this image contains all the installation process for open_ptrack and it is based on the instructions [here](https://docs.google.com/document/d/1iagy-zU1cbV92YQI6EJhieM5-09BGrVsVmmz0QjK0XA/edit)
 
 **Instructions:**
 build the image :
 ```bash
-cd itabrz-open_ptrack-dep
-sudo docker build -t itabrz/open_ptrack-dep .
+cd open_ptrack-dep
+sudo docker build -t open_ptrack/open_ptrack-dep .
 ```
 
-* ### itabrz-open_ptrack
-itabrz_open_ptrack is based on itabrz-open_ptrack-dep and itabrz_open_ptrack is the base image for itabrz:open_ptrack-single_camera_tracking and itabrz:open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
+* ### open_ptrack
+itabrz_open_ptrack is based on open_ptrack-dep and itabrz_open_ptrack is the base image for itabrz:open_ptrack-single_camera_tracking and itabrz:open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
 
 **Instructions:**
 build the image :
 ```bash
-cd itabrz-open_ptrack
-sudo docker build -t itabrz/open_ptrack .
+cd open_ptrack
+sudo docker build -t open_ptrack/open_ptrack .
 ```
 or to change a branch
 ```bash
-cd itabrz-open_ptrack
-sudo docker build -t itabrz/open_ptrack --build-arg branch=iss21 .
+cd open_ptrack
+sudo docker build -t open_ptrack/open_ptrack --build-arg branch=iss21 .
 ```
 
-* ### itabrz-open_ptrack-single_camera_tracking 
-itabrz-open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, itabrz:open_ptrack itself can run single camera tracking.
+* ### open_ptrack-single_camera_tracking 
+open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, itabrz:open_ptrack itself can run single camera tracking.
 
 **Instructions:**
 ```bash
@@ -126,8 +126,8 @@ xhost +
 ```
 build the image :
 ```bash
-cd itabrz-open_ptrack-single_camera_tracking
-sudo docker build -t itabrz/open_ptrack-single_camera_tracking .
+cd open_ptrack-single_camera_tracking
+sudo docker build -t open_ptrack/open_ptrack-single_camera_tracking .
 ```
 in the same folder run the container 
 ```bash
@@ -141,12 +141,12 @@ sudo docker run --runtime=nvidia \
 --mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ \
 --net=host \
 --device /dev/bus/usb:/dev/bus/usb \
---name opt-docker-singlecamera itabrz/open_ptrack-single_camera_tracking bash
+--name opt-docker-singlecamera open_ptrack/open_ptrack-single_camera_tracking bash
 ```
 
 
-* ### itabrz-open_ptrack-multi_camera_tracking 
-itabrz-open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to setup the configurations required for multi camera tracking.
+* ### open_ptrack-multi_camera_tracking 
+open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to setup the configurations required for multi camera tracking.
 
 **Instructions:**
 
@@ -159,7 +159,7 @@ valid values for MACHINE_TYPE is Server or Client :
 
 For master machine :
 ```bash
-cd itabrz-open_ptrack-multi_camera_tracking
+cd open_ptrack-multi_camera_tracking
 sudo docker build --build-arg MACHINE_TYPE="Server" -t open_ptrack-multicamera_camera .
 ```
 For other nodes :
