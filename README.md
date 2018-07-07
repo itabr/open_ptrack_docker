@@ -103,7 +103,7 @@ sudo docker build -t open_ptrack/open_ptrack-dep .
 ```
 
 * ### open_ptrack
-itabrz_open_ptrack is based on open_ptrack-dep and itabrz_open_ptrack is the base image for itabrz:open_ptrack-single_camera_tracking and itabrz:open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
+open_ptrack is based on open_ptrack-dep and it is the base image for open_ptrack-single_camera_tracking and open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
 
 **Instructions:**
 build the image :
@@ -118,7 +118,7 @@ sudo docker build -t open_ptrack/open_ptrack --build-arg branch=iss21 .
 ```
 
 * ### open_ptrack-single_camera_tracking 
-open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, itabrz:open_ptrack itself can run single camera tracking.
+open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, open_ptrack itself can run single camera tracking.
 
 **Instructions:**
 ```bash
