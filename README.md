@@ -16,14 +16,15 @@ Docker, nvidia driver, nvidia-docker are required to be installed before using o
 for updated version look at the Docker official instructions [here](https://docs.docker.com/install/)
 
 ```
+sudo apt-get update
+
 sudo apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
     software-properties-common
 
-DOCKER_EE_URL="https://download.docker.com/linux"
-curl -fsSL "${DOCKER_EE_URL}/ubuntu/gpg" | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 sudo apt-key fingerprint 0EBFCD88
 
@@ -35,7 +36,6 @@ sudo add-apt-repository \
 sudo apt-get update
 sudo apt-get install docker-ce
 
-apt-cache madison docker-ce
 ```
 ##### Now test docker with hello-world image
 ```
@@ -51,13 +51,6 @@ sudo apt-get install nvidia-384
 #### Install nvidia-docker 2 
 
 for updated version look at the Nvidia Docker official instructions [here](https://github.com/NVIDIA/nvidia-docker)
-
-```
-wget https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.0/nvidia-docker_1.0.0-1_amd64.deb
-
-sudo dpkg -i nvidia-docker*.deb
-sudo -b nohup nvidia-docker-plugin > /tmp/nvidia-docker.log
-```
 
 ##### If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
 ```
@@ -79,42 +72,49 @@ sudo apt-get update
 sudo apt-get install -y nvidia-docker2
 sudo pkill -SIGHUP dockerd
 ```
+
+##### reboot your system 
+
 ##### Test nvidia-smi with the latest official CUDA image
 ```
 sudo docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 ```
 
-
 ### Installing
 
 Next you need to build OpenPtrack images:
 
-This project contains four different images : itabrz-opt-dep, itabrz-open_ptrack, itabrz-open_ptrack-single_camera_tracking, itabrz-open_ptrack-multi_camera_tracking
+This project contains four different images : itabrz-open_ptrack-dep, itabrz-open_ptrack, itabrz-open_ptrack-single_camera_tracking, itabrz-open_ptrack-multi_camera_tracking
 
+Clone the repository: 
+```
+https://github.com/itabr/open_ptrack_docker.git
+cd open_ptrack_docker
+```
 
-* ### itabrz-opt-dep
-itabrz-opt-dep is base image for itabrz-open_ptrack and includes all the dependencies requried for open_ptrack. this image is based on nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04, this image contains all the installation process for open_ptrack and it is based on the instructions [here](https://docs.google.com/document/d/1iagy-zU1cbV92YQI6EJhieM5-09BGrVsVmmz0QjK0XA/edit)
+* ### itabrz-open_ptrack-dep
+itabrz-open_ptrack-dep is base image for itabrz-open_ptrack and includes all the dependencies requried for open_ptrack. this image is based on nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04, this image contains all the installation process for open_ptrack and it is based on the instructions [here](https://docs.google.com/document/d/1iagy-zU1cbV92YQI6EJhieM5-09BGrVsVmmz0QjK0XA/edit)
 
 **Instructions:**
 build the image :
 ```bash
-cd itabrz-opt-dep
-docker build -t itabrz/opt-dep .
+cd itabrz-open_ptrack-dep
+sudo docker build -t itabrz/open_ptrack-dep .
 ```
 
 * ### itabrz-open_ptrack
-itabrz_open_ptrack is based on itabrz-opt-dep and itabrz_open_ptrack is the base image for itabrz:open_ptrack-single_camera_tracking and itabrz:open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
+itabrz_open_ptrack is based on itabrz-open_ptrack-dep and itabrz_open_ptrack is the base image for itabrz:open_ptrack-single_camera_tracking and itabrz:open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
 
 **Instructions:**
 build the image :
 ```bash
 cd itabrz-open_ptrack
-docker build -t itabrz/open_ptrack .
+sudo docker build -t itabrz/open_ptrack .
 ```
 or to change a branch
 ```bash
 cd itabrz-open_ptrack
-docker build -t itabrz/open_ptrack --build-arg branch=iss21 .
+sudo docker build -t itabrz/open_ptrack --build-arg branch=iss21 .
 ```
 
 * ### itabrz-open_ptrack-single_camera_tracking 
@@ -127,11 +127,11 @@ xhost +
 build the image :
 ```bash
 cd itabrz-open_ptrack-single_camera_tracking
-docker build -t itabrz/open_ptrack-single_camera_tracking .
+sudo docker build -t itabrz/open_ptrack-single_camera_tracking .
 ```
 in the same folder run the container 
 ```bash
-docker run --runtime=nvidia \
+sudo docker run --runtime=nvidia \
 --rm -ti -e DISPLAY \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 --mount type=bind,source=$(pwd)/open_ptrack_config/detection/launch/,destination=/root/workspace/ros/src/open_ptrack/detection/launch/ \
@@ -160,16 +160,16 @@ valid values for MACHINE_TYPE is Server or Client :
 For master machine :
 ```bash
 cd itabrz-open_ptrack-multi_camera_tracking
-docker build --build-arg MACHINE_TYPE="Server" -t open_ptrack-multicamera_camera .
+sudo docker build --build-arg MACHINE_TYPE="Server" -t open_ptrack-multicamera_camera .
 ```
 For other nodes :
 ```bash
- docker build --build-arg MACHINE_TYPE="Client" -t open_ptrack-multicamera_camera .
+sudo docker build --build-arg MACHINE_TYPE="Client" -t open_ptrack-multicamera_camera .
 ```
 in the same folder run the container, you need to change the ROS_MASTER_URI and 
 ROS_IP, ROS_PC_NAME according to your configuration :
 ```bash
-docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+sudo docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
 --mount type=bind,source=$(pwd)/open_ptrack_config/opt_calibration/launch/,destination=/root/workspace/ros/src/open_ptrack/opt_calibration/launch/ \
 --mount type=bind,source=$(pwd)/open_ptrack_config/opt_calibration/conf/,destination=/root/workspace/ros/src/open_ptrack/opt_calibration/conf/ \
 --mount type=bind,source=$(pwd)/open_ptrack_config/detection/launch/,destination=/root/workspace/ros/src/open_ptrack/detection/launch/ \
@@ -185,7 +185,6 @@ docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix
 open_ptrack-multicamera_camera bash
 ```
 
-
 ## Deployment
 
 you can use bellow command to Run a command in a running container:
@@ -193,12 +192,10 @@ you can use bellow command to Run a command in a running container:
 docker exec  -ti -e DISPLAY container-name bash
 ```
 
-
 ## Built With
 
 * [Docker](https://www.docker.com/) - Container platform provider
 * [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) - NVIDIA container runtime for Docker
-
 
 ## Authors
 

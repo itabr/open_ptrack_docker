@@ -48,7 +48,6 @@
 #      roslaunch detection detection_node_kinect01.launch enable_pose:=false enable_object:=true enable_people_tracking:=true
 #   NOTE: the flags should be the same for both tracker and detection nodes.
 
-
 FROM itabrz/open_ptrack
 LABEL maintainer "Samir Tabriz"
 WORKDIR /root
@@ -60,46 +59,3 @@ ENV ROS_PC_NAME = PC1
 ARG MACHINE_TYPE=Server
 
 COPY ./open_ptrack_config/$MACHINE_TYPE/etc/ntp.conf /etc/ntp.conf
-
-
-# RUN mkdir /root/open_ptrack_config \
-#     && cd /root/open_ptrack_config \
-#     && mkdir opt_calibration \
-#     && cd opt_calibration/ \
-#     && mkdir launch conf \
-#     && cd .. \
-#     && mkdir detection \
-#     && cd detection/ \
-#     && mkdir conf launch \
-#     && cd .. \
-#     && mkdir tracking \
-#     && cd tracking/ \
-#     && mkdir conf launch \
-#     && cd .. \
-#     && mkdir yolo_detector \
-#     && cd yolo_detector/ \
-#     && mkdir launch \
-#     && cd .. \
-#     && cp -r /root/workspace/ros/src/open_ptrack/opt_calibration/launch/* opt_calibration/launch \
-#     && cp -r /root/workspace/ros/src/open_ptrack/opt_calibration/conf/* opt_calibration/conf \
-#     && cp -r /root/workspace/ros/src/open_ptrack/detection/conf/* detection/conf \
-#     && cp -r /root/workspace/ros/src/open_ptrack/detection/launch/* detection/launch \
-#     && cp -r /root/workspace/ros/src/open_ptrack/tracking/launch/* tracking/launch \
-#     && cp -r /root/workspace/ros/src/open_ptrack/tracking/conf/* tracking/conf  \
-#     && cp -r /root/workspace/ros/src/open_ptrack/yolo_detector/launch/* yolo_detector/launch
-
-# RUN rm -rf /root/workspace/ros/src/open_ptrack/opt_calibration/launch \
-#     && ln -s /root/open_ptrack_config/opt_calibration/launch /root/workspace/ros/src/open_ptrack/opt_calibration/launch \
-#     && rm -rf /root/workspace/ros/src/open_ptrack/opt_calibration/conf \
-#     && ln -s /root/open_ptrack_config/opt_calibration/conf /root/workspace/ros/src/open_ptrack/opt_calibration/conf \    
-#     && rm -rf /root/workspace/ros/src/open_ptrack/detection/conf \
-#     && ln -s /root/open_ptrack_config/detection/conf /root/workspace/ros/src/open_ptrack/detection/conf \
-#     && rm -rf /root/workspace/ros/src/open_ptrack/detection/launch \
-#     && ln -s /root/open_ptrack_config/detection/launch /root/workspace/ros/src/open_ptrack/detection/launch \
-#     && rm -rf /root/workspace/ros/src/open_ptrack/tracking/launch \
-#     && ln -s /root/open_ptrack_config/tracking/launch /root/workspace/ros/src/open_ptrack/tracking/launch \
-#     && rm -rf /root/workspace/ros/src/open_ptrack/tracking/conf \
-#     && ln -s /root/open_ptrack_config/tracking/conf /root/workspace/ros/src/open_ptrack/tracking/conf \
-#     && rm -rf /root/workspace/ros/src/open_ptrack/yolo_detector/launch \
-#     && ln -s /root/open_ptrack_config/yolo_detector/launch /root/workspace/ros/src/open_ptrack/yolo_detector/launch
-
