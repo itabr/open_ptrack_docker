@@ -13,7 +13,7 @@ Docker, nvidia driver, nvidia-docker are required to be installed before using o
 
 #### Install Docker
 
-for updated version look at the Docker official instructions [here](https://docs.docker.com/install/)
+For updated version look at the Docker official instructions [here](https://docs.docker.com/install/)
 
 ```
 sudo apt-get update
@@ -50,7 +50,7 @@ sudo apt-get install nvidia-384
 
 #### Install nvidia-docker 2 
 
-for updated version look at the Nvidia Docker official instructions [here](https://github.com/NVIDIA/nvidia-docker)
+For updated version look at the Nvidia Docker official instructions [here](https://github.com/NVIDIA/nvidia-docker)
 
 ##### If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
 ```
@@ -96,7 +96,7 @@ cd open_ptrack_docker
 open_ptrack-dep is base image for open_ptrack and includes all the dependencies requried for open_ptrack. this image is based on nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04, this image contains all the installation process for open_ptrack and it is based on the instructions [here](https://docs.google.com/document/d/1iagy-zU1cbV92YQI6EJhieM5-09BGrVsVmmz0QjK0XA/edit)
 
 **Instructions:**
-build the image :
+Build the image :
 ```bash
 cd open_ptrack-dep
 sudo docker build -t openptrack/open_ptrack-dep .
@@ -108,7 +108,7 @@ Note : dot (.) is part of the command. It means the current directory.
 open_ptrack is based on open_ptrack-dep and it is the base image for open_ptrack-single_camera_tracking and open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
 
 **Instructions:**
-build the image :
+Build the image :
 ```bash
 cd open_ptrack
 sudo docker build -t openptrack/open_ptrack .
@@ -128,14 +128,14 @@ open_ptrack-single_camera_tracking is an image for single camera tracking, altho
 ```bash
 xhost +
 ```
-build the image :
+Build the image :
 ```bash
 cd open_ptrack-single_camera_tracking
 sudo docker build -t openptrack/open_ptrack-single_camera_tracking .
 ```
 Note : dot (.) is part of the command. It means the current directory.
 
-in the same folder run the container 
+In the same folder run the container 
 ```bash
 sudo docker run --runtime=nvidia \
 --rm -ti -e DISPLAY \
@@ -150,7 +150,6 @@ sudo docker run --runtime=nvidia \
 --name opt-docker-singlecamera openptrack/open_ptrack-single_camera_tracking bash
 ```
 
-
 * ### open_ptrack-multi_camera_tracking 
 open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to setup the configurations required for multi camera tracking.
 
@@ -159,7 +158,7 @@ open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this i
 ```bash
 xhost +
 ```
-build the image 
+Build the image 
 
 valid values for MACHINE_TYPE is Server or Client :
 
@@ -174,7 +173,7 @@ sudo docker build --build-arg MACHINE_TYPE="Client" -t openptrack/open_ptrack-mu
 ```
 Note : dot (.) is part of the command. It means the current directory.
 
-in the same folder run the container, you need to change the ROS_MASTER_URI and 
+In the same folder run the container, you need to change the ROS_MASTER_URI and 
 ROS_IP, ROS_PC_NAME according to your configuration :
 ```bash
 sudo docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -195,7 +194,7 @@ openptrack/open_ptrack-multicamera_camera bash
 
 ## Deployment
 
-you can use bellow command to Run a command in a running container:
+You can use bellow command to Run a command in a running container:
 ```
 docker exec  -ti -e DISPLAY container-name bash
 ```
