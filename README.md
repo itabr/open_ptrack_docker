@@ -102,6 +102,8 @@ cd open_ptrack-dep
 sudo docker build -t openptrack/open_ptrack-dep .
 ```
 
+note : dot is part of the command meaning the current directory.
+
 * ### open_ptrack
 open_ptrack is based on open_ptrack-dep and it is the base image for open_ptrack-single_camera_tracking and open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
 
@@ -117,6 +119,9 @@ cd open_ptrack
 sudo docker build -t openptrack/open_ptrack --build-arg branch=iss21 .
 ```
 
+note : dot is part of the command meaning the current directory.
+
+
 * ### open_ptrack-single_camera_tracking 
 open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, open_ptrack itself can run single camera tracking.
 
@@ -129,6 +134,8 @@ build the image :
 cd open_ptrack-single_camera_tracking
 sudo docker build -t openptrack/open_ptrack-single_camera_tracking .
 ```
+note : dot is part of the command meaning the current directory.
+
 in the same folder run the container 
 ```bash
 sudo docker run --runtime=nvidia \
@@ -166,6 +173,8 @@ For other nodes :
 ```bash
 sudo docker build --build-arg MACHINE_TYPE="Client" -t openptrack/open_ptrack-multicamera_camera .
 ```
+note : dot is part of the command meaning the current directory.
+
 in the same folder run the container, you need to change the ROS_MASTER_URI and 
 ROS_IP, ROS_PC_NAME according to your configuration :
 ```bash
