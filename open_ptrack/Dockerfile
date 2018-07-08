@@ -1,11 +1,8 @@
-# docker build -t open_ptrack/open_ptrack --build-arg branch=iss21 .
-
 FROM openptrack/open_ptrack-dep
 LABEL maintainer "Samir Tabriz"
 
 ARG branch=master
 
-# install open_prack
 RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd ~/workspace/ros/src \
     && git clone https://github.com/openptrack/open_ptrack_v2 open_ptrack \

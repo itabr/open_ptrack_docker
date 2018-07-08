@@ -1,5 +1,3 @@
-# docker build -t open_ptrack/open_ptrack-dep .
-
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04
 
 LABEL maintainer "Samir Tabriz"
