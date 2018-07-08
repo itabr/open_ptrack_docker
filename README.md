@@ -165,11 +165,11 @@ valid values for MACHINE_TYPE is Server or Client :
 For master machine :
 ```bash
 cd open_ptrack-multi_camera_tracking
-sudo docker build --build-arg MACHINE_TYPE="Server" -t openptrack/open_ptrack-multicamera_camera .
+sudo docker build --build-arg MACHINE_TYPE="Server" -t openptrack/open_ptrack-multicamera_tracking .
 ```
 For other nodes :
 ```bash
-sudo docker build --build-arg MACHINE_TYPE="Client" -t openptrack/open_ptrack-multicamera_camera .
+sudo docker build --build-arg MACHINE_TYPE="Client" -t openptrack/open_ptrack-multicamera_tracking .
 ```
 Note : dot (.) is part of the command. It means the current directory.
 
@@ -189,7 +189,7 @@ sudo docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11
 -e "ROS_MASTER_URI=http://192.168.100.101:11311/" \
 -e "ROS_IP=192.168.100.101" \
 -e "ROS_PC_NAME=PC1" \
-openptrack/open_ptrack-multicamera_camera bash
+openptrack/open_ptrack-multicamera_tracking bash
 ```
 
 ## Deployment

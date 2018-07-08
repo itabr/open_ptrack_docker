@@ -50,7 +50,7 @@ sudo apt-get install nvidia-384
 
 #### Install nvidia-docker 2 
 
-For updated version look at the Nvidia Docker official instructions [here](https://github.com/NVIDIA/nvidia-docker)
+For an updated version look at the Nvidia Docker official instructions [here](https://github.com/NVIDIA/nvidia-docker)
 
 ##### If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
 ```
@@ -126,11 +126,11 @@ For master machine :
 ```bash
 cd open_ptrack-multi_camera_tracking
 xhost +
-sudo docker build --build-arg MACHINE_TYPE="Server" -t openptrack/open_ptrack-multicamera_camera .
+sudo docker build --build-arg MACHINE_TYPE="Server" -t openptrack/open_ptrack-multicamera_tracking .
 ```
 For other nodes :
 ```bash
-sudo docker build --build-arg MACHINE_TYPE="Client" -t openptrack/open_ptrack-multicamera_camera .
+sudo docker build --build-arg MACHINE_TYPE="Client" -t openptrack/open_ptrack-multicamera_tracking .
 ```
 Note : dot (.) is part of the command. It means the current directory.
 
