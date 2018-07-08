@@ -13,7 +13,7 @@ Docker, nvidia driver, nvidia-docker are required to be installed before using o
 
 #### Install Docker
 
-For updated version look at the Docker official instructions [here](https://docs.docker.com/install/)
+For an updated version look at the Docker official instructions [here](https://docs.docker.com/install/)
 
 ```
 sudo apt-get update
@@ -73,7 +73,7 @@ sudo apt-get install -y nvidia-docker2
 sudo pkill -SIGHUP dockerd
 ```
 
-##### reboot your system 
+##### Reboot your system 
 
 ##### Test nvidia-smi with the latest official CUDA image
 ```
@@ -82,9 +82,7 @@ sudo docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 
 ### Installing
 
-Next you need to build OpenPtrack images:
-
-This project contains four different images : open_ptrack-dep, open_ptrack, open_ptrack-single_camera_tracking, open_ptrack-multi_camera_tracking
+Next you need to clone the open_ptrack_docker and then run single_camera_tracking or multi_camera_tracking:
 
 Clone the repository: 
 ```
@@ -92,51 +90,16 @@ git clone https://github.com/itabr/open_ptrack_docker.git
 cd open_ptrack_docker
 ```
 
-* ### open_ptrack-dep
-open_ptrack-dep is base image for open_ptrack and includes all the dependencies requried for open_ptrack. this image is based on nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04, this image contains all the installation process for open_ptrack and it is based on the instructions [here](https://docs.google.com/document/d/1iagy-zU1cbV92YQI6EJhieM5-09BGrVsVmmz0QjK0XA/edit)
-
-**Instructions:**
-Build the image :
-```bash
-cd open_ptrack-dep
-sudo docker build -t openptrack/open_ptrack-dep .
-```
-
-Note : dot (.) is part of the command. It means the current directory.
-
-* ### open_ptrack
-open_ptrack is based on open_ptrack-dep and it is the base image for open_ptrack-single_camera_tracking and open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
-
-**Instructions:**
-Build the image :
-```bash
-cd open_ptrack
-sudo docker build -t openptrack/open_ptrack .
-```
-or to change a branch
-```bash
-cd open_ptrack
-sudo docker build -t openptrack/open_ptrack --build-arg branch=iss21 .
-```
-
-Note : dot (.) is part of the command. It means the current directory.
-
-* ### open_ptrack-single_camera_tracking 
-open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, open_ptrack itself can run single camera tracking.
+** open_ptrack-single_camera_tracking **
+open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccessery to use this image, open_ptrack itself can run single camera tracking.
 
 **Instructions:**
 ```bash
-xhost +
-```
-Build the image :
-```bash
+
 cd open_ptrack-single_camera_tracking
-sudo docker build -t openptrack/open_ptrack-single_camera_tracking .
-```
-Note : dot (.) is part of the command. It means the current directory.
 
-In the same folder run the container 
-```bash
+xhost +
+
 sudo docker run --runtime=nvidia \
 --rm -ti -e DISPLAY \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -150,21 +113,19 @@ sudo docker run --runtime=nvidia \
 --name opt-docker-singlecamera openptrack/open_ptrack-single_camera_tracking bash
 ```
 
-* ### open_ptrack-multi_camera_tracking 
-open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to setup the configurations required for multi camera tracking.
+** open_ptrack-multi_camera_tracking **
+open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to set up the configurations required for multi camera tracking.
 
 **Instructions:**
 
-```bash
-xhost +
-```
-Build the image 
+Build the image for open_ptrack-multi_camera_tracking
 
-valid values for MACHINE_TYPE is Server or Client :
+Valid value for MACHINE_TYPE is Server or Client :
 
 For master machine :
 ```bash
 cd open_ptrack-multi_camera_tracking
+xhost +
 sudo docker build --build-arg MACHINE_TYPE="Server" -t openptrack/open_ptrack-multicamera_camera .
 ```
 For other nodes :
@@ -175,6 +136,9 @@ Note : dot (.) is part of the command. It means the current directory.
 
 In the same folder run the container, you need to change the ROS_MASTER_URI and 
 ROS_IP, ROS_PC_NAME according to your configuration :
+
+Example:
+
 ```bash
 sudo docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
 --mount type=bind,source=$(pwd)/open_ptrack_config/opt_calibration/launch/,destination=/root/workspace/ros/src/open_ptrack/opt_calibration/launch/ \
@@ -192,9 +156,11 @@ sudo docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11
 openptrack/open_ptrack-multicamera_camera bash
 ```
 
+After this step follow Time-Synchronization on the wiki [here](https://github.com/OpenPTrack/open_ptrack/wiki/Time-Synchronization) and then continue with the calibration
+
 ## Deployment
 
-You can use bellow command to Run a command in a running container:
+You can use below command to create a new terminal for a running container. This can be used during calibration and multi camera tracking:
 ```
 docker exec  -ti -e DISPLAY container-name bash
 ```
