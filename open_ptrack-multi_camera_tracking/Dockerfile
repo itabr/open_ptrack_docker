@@ -48,7 +48,7 @@
 #      roslaunch detection detection_node_kinect01.launch enable_pose:=false enable_object:=true enable_people_tracking:=true
 #   NOTE: the flags should be the same for both tracker and detection nodes.
 
-FROM open_ptrack/open_ptrack
+FROM openptrack/open_ptrack
 LABEL maintainer "Samir Tabriz"
 WORKDIR /root
 

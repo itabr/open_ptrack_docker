@@ -1,6 +1,6 @@
 # docker build -t open_ptrack/open_ptrack --build-arg branch=iss21 .
 
-FROM open_ptrack/open_ptrack-dep
+FROM openptrack/open_ptrack-dep
 LABEL maintainer "Samir Tabriz"
 
 ARG branch=master

@@ -88,7 +88,7 @@ This project contains four different images : open_ptrack-dep, open_ptrack, open
 
 Clone the repository: 
 ```
-https://github.com/itabr/open_ptrack_docker.git
+git clone https://github.com/itabr/open_ptrack_docker.git
 cd open_ptrack_docker
 ```
 
@@ -99,7 +99,7 @@ open_ptrack-dep is base image for open_ptrack and includes all the dependencies 
 build the image :
 ```bash
 cd open_ptrack-dep
-sudo docker build -t open_ptrack/open_ptrack-dep .
+sudo docker build -t openptrack/open_ptrack-dep .
 ```
 
 * ### open_ptrack
@@ -109,12 +109,12 @@ open_ptrack is based on open_ptrack-dep and it is the base image for open_ptrack
 build the image :
 ```bash
 cd open_ptrack
-sudo docker build -t open_ptrack/open_ptrack .
+sudo docker build -t openptrack/open_ptrack .
 ```
 or to change a branch
 ```bash
 cd open_ptrack
-sudo docker build -t open_ptrack/open_ptrack --build-arg branch=iss21 .
+sudo docker build -t openptrack/open_ptrack --build-arg branch=iss21 .
 ```
 
 * ### open_ptrack-single_camera_tracking 
@@ -127,7 +127,7 @@ xhost +
 build the image :
 ```bash
 cd open_ptrack-single_camera_tracking
-sudo docker build -t open_ptrack/open_ptrack-single_camera_tracking .
+sudo docker build -t openptrack/open_ptrack-single_camera_tracking .
 ```
 in the same folder run the container 
 ```bash
@@ -141,7 +141,7 @@ sudo docker run --runtime=nvidia \
 --mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ \
 --net=host \
 --device /dev/bus/usb:/dev/bus/usb \
---name opt-docker-singlecamera open_ptrack/open_ptrack-single_camera_tracking bash
+--name opt-docker-singlecamera openptrack/open_ptrack-single_camera_tracking bash
 ```
 
 
@@ -160,11 +160,11 @@ valid values for MACHINE_TYPE is Server or Client :
 For master machine :
 ```bash
 cd open_ptrack-multi_camera_tracking
-sudo docker build --build-arg MACHINE_TYPE="Server" -t open_ptrack-multicamera_camera .
+sudo docker build --build-arg MACHINE_TYPE="Server" -t openptrack/open_ptrack-multicamera_camera .
 ```
 For other nodes :
 ```bash
-sudo docker build --build-arg MACHINE_TYPE="Client" -t open_ptrack-multicamera_camera .
+sudo docker build --build-arg MACHINE_TYPE="Client" -t openptrack/open_ptrack-multicamera_camera .
 ```
 in the same folder run the container, you need to change the ROS_MASTER_URI and 
 ROS_IP, ROS_PC_NAME according to your configuration :
@@ -182,7 +182,7 @@ sudo docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11
 -e "ROS_MASTER_URI=http://192.168.100.101:11311/" \
 -e "ROS_IP=192.168.100.101" \
 -e "ROS_PC_NAME=PC1" \
-open_ptrack-multicamera_camera bash
+openptrack/open_ptrack-multicamera_camera bash
 ```
 
 ## Deployment

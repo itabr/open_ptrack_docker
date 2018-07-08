@@ -24,6 +24,6 @@
 # <same result as the one above, but specifying the modules (you can also disable them with false)>
 # roslaunch tracking single_camera_tracking_node.launch enable_pose:=false enable_people_tracking:=true enable_object:=true
 
-FROM open_ptrack/open_ptrack
+FROM openptrack/open_ptrack
 LABEL maintainer "Samir Tabriz"
 WORKDIR /root
