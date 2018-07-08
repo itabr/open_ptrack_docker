@@ -90,7 +90,7 @@ git clone https://github.com/itabr/open_ptrack_docker.git
 cd open_ptrack_docker
 ```
 
-** open_ptrack-single_camera_tracking **
+#### open_ptrack-single_camera_tracking
 open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccessery to use this image, open_ptrack itself can run single camera tracking.
 
 **Instructions:**
@@ -113,7 +113,7 @@ sudo docker run --runtime=nvidia \
 --name opt-docker-singlecamera openptrack/open_ptrack-single_camera_tracking bash
 ```
 
-** open_ptrack-multi_camera_tracking **
+#### open_ptrack-multi_camera_tracking
 open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to set up the configurations required for multi camera tracking.
 
 **Instructions:**
