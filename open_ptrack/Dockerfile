@@ -21,4 +21,6 @@ RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
     && wget https://pjreddie.com/media/files/yolo.weights \
     && mv yolo.weights coco.weights"
 
-RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack 
+RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack
+
+COPY opt_quick_start/* $HOME
