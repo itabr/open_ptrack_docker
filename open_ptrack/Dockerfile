@@ -18,9 +18,8 @@ RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
 
 RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
     && roscd yolo_detector/darknet_opt \
-    && wget https://pjreddie.com/media/files/yolo.weights \
-    && mv yolo.weights coco.weights"
+    && wget -O coco.weights https://pjreddie.com/media/files/yolo.weights"
 
 RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack
 
-COPY opt_quick_start/* $HOME/
+COPY opt_quick_start /root/opt_quick_start
