@@ -23,4 +23,4 @@ RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
 
 RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack
 
-COPY opt_quick_start/* $HOME
+COPY opt_quick_start/* $HOME/
