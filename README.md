@@ -176,7 +176,9 @@ Note : dot (.) is part of the command. It means the current directory.
 In the same folder run the container, you need to change the ROS_MASTER_URI and 
 ROS_IP, ROS_PC_NAME according to your configuration :
 ```bash
-sudo docker run --runtime=nvidia --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+sudo docker run --runtime=nvidia --rm -ti -e DISPLAY \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+-v $(pwd)/open_ptrack_config/Server/etc/ntp.conf/:/etc/ntp.conf \
 --mount type=bind,source=$(pwd)/open_ptrack_config/opt_calibration/launch/,destination=/root/workspace/ros/src/open_ptrack/opt_calibration/launch/ \
 --mount type=bind,source=$(pwd)/open_ptrack_config/opt_calibration/conf/,destination=/root/workspace/ros/src/open_ptrack/opt_calibration/conf/ \
 --mount type=bind,source=$(pwd)/open_ptrack_config/detection/launch/,destination=/root/workspace/ros/src/open_ptrack/detection/launch/ \
