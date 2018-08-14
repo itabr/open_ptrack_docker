@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "Pulling docker image ..."
-sudo docker pull openptrack/open_ptrack && \
-echo "Finished pulling the image." && \
 echo "Starting open_ptrack_single_camera container ..." && \
 xhost + && \
 sudo docker run \
