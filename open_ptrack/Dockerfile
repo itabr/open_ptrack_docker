@@ -20,6 +20,9 @@ RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
     && roscd yolo_detector/darknet_opt \
     && wget -O coco.weights https://pjreddie.com/media/files/yolo.weights"
 
+RUN /bin/bash -c "cd /root/workspace/ros/src/open_ptrack/recognition/install_scripts \
+    && ./download_face_models.sh"
+
 RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack
 
 COPY opt_quick_start /root/opt_quick_start
