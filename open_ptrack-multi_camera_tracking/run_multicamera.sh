@@ -7,6 +7,7 @@ echo "Pulling docker image ..."
 sudo docker pull openptrack/open_ptrack && \
 echo "Finished pulling the image." && \
 echo "Starting open_ptrack_multicamera container ..." && \
+xhost + && \
 sudo docker run \
 --runtime=nvidia \
 --rm \
@@ -27,4 +28,4 @@ sudo docker run \
 --env ROS_MASTER_URI \
 --env ROS_IP \
 --env ROS_PC_NAME \
-openptrack/open_ptrack-multicamera_tracking bash
+openptrack/open_ptrack bash
