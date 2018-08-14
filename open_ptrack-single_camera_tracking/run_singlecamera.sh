@@ -3,7 +3,7 @@
 echo "Pulling docker image ..."
 sudo docker pull openptrack/open_ptrack && \
 echo "Finished pulling the image." && \
-echo "Starting open_ptrack_singlecamera container ..." && \
+echo "Starting open_ptrack_single_camera container ..." && \
 xhost + && \
 sudo docker run \
 --runtime=nvidia \
@@ -16,5 +16,5 @@ sudo docker run \
 --mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ \
 --net=host \
 --device /dev/bus/usb:/dev/bus/usb \
---name open_ptrack_singlecamera \
+--name open_ptrack_single_camera \
 openptrack/open_ptrack bash
