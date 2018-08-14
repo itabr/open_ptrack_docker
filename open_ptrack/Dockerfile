@@ -21,8 +21,6 @@ RUN /bin/bash -c "source /root/workspace/ros/devel/setup.bash \
     && wget -O coco.weights https://pjreddie.com/media/files/yolo.weights"
 
 RUN cd /root/workspace/ros/src/open_ptrack/recognition/install_scripts \
-    && rm -rf ../data \
-    && mkdir ../data \
     && wget http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2 \
     && bunzip2 shape_predictor_68_face_landmarks.dat.bz2 \ 
     && mv shape_predictor_68_face_landmarks.dat ../data/ \
