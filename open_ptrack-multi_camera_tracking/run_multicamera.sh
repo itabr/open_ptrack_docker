@@ -3,7 +3,14 @@
 export ROS_MASTER_URI="http://192.168.100.101:11311/"
 export ROS_IP="192.168.100.101"
 export ROS_PC_NAME="PC1"
-export MACHINE_TYPE="Server"
+
+if [[ $ROS_MASTER_URI = *$ROS_IP* ]]; then
+        export MACHINE_TYPE="Server" && \
+        echo "This machine is recognized as master"
+else
+        export MACHINE_TYPE="Client" && \
+        echo "This machine is recognized as slave"
+fi
 
 echo "Pulling docker image ..."
 sudo docker pull openptrack/open_ptrack && \
