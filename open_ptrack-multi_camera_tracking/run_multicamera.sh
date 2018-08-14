@@ -5,10 +5,10 @@ export ROS_IP="192.168.100.101"
 export ROS_PC_NAME="PC1"
 
 if [[ $ROS_MASTER_URI = *$ROS_IP* ]]; then
-        export MACHINE_TYPE="Server" && \
+        export MACHINE_TYPE="master" && \
         echo "This machine is recognized as master"
 else
-        export MACHINE_TYPE="Client" && \
+        export MACHINE_TYPE="slave" && \
         echo "This machine is recognized as slave"
 fi
 
