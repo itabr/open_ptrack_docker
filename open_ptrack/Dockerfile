@@ -27,8 +27,7 @@ RUN cd /root/workspace/ros/src/open_ptrack/recognition/install_scripts \
     && bunzip2 shape_predictor_68_face_landmarks.dat.bz2 \ 
     && mv shape_predictor_68_face_landmarks.dat ../data/ \
     && wget https://storage.cmusatyalab.org/openface-models/nn4.small2.v1.t7 \
-    && mv nn4.small2.v1.t7 ../data/ \
-    && rm shape_predictor_68_face_landmarks.dat.bz2
+    && mv nn4.small2.v1.t7 ../data/
 
 RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack
 
