@@ -12,9 +12,6 @@ else
         echo "This machine is recognized as slave"
 fi
 
-echo "Pulling docker image ..."
-sudo docker pull openptrack/open_ptrack && \
-echo "Finished pulling the image." && \
 echo "Starting open_ptrack_multi_camera container ..." && \
 xhost + && \
 sudo docker run \
