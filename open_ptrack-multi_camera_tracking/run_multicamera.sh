@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source ros_netwrok.conf
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $SCRIPTDIR/ros_network.config;
 
 if [[ $ROS_MASTER_URI = *$ROS_IP* ]]; then
         export MACHINE_TYPE="master" && \
