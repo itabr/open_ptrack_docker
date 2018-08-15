@@ -137,10 +137,7 @@ RUN  /bin/bash -c "source /root/.bashrc    \
     && cd rtpose_wrapper     \ 
     && git checkout integration-1604     \ 
     && apt-get --assume-yes install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libboost-all-dev libgflags-dev libgoogle-glog-dev liblmdb-dev     \ 
-    && make all -j8"  
-
-RUN  apt-get install ntp -y  \ 
-    && rm -rf /var/lib/apt/lists/*
+    && make all -j8"
 
 RUN  /bin/bash -c "cd ~/workspace/ \ 
     && source /root/.bashrc \ 
@@ -173,4 +170,5 @@ RUN /bin/bash -c "cd ~/workspace/ \
     && cmake --build . --config Release \
     && sudo cp dlib.so /usr/local/lib/python2.7/dist-packages"
 
-WORKDIR /root
+RUN  apt-get install ntp -y  \ 
+    && rm -rf /var/lib/apt/lists/*
