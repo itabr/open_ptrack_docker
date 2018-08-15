@@ -5,9 +5,11 @@ container_name = "open_ptrack_single_camera"
 if [ "$(docker ps -a | grep $container_name)" ]; then
     if [ "$(docker inspect -f {{.State.Running}} $container_name)" ]; then
         echo "open_ptrack_single_camera container is already running. \n Running a new command in open_ptrack_single_camera." && \
+        xhost + && \
         docker exec  -ti -e DISPLAY $container_name bash
     else
         echo "open_ptrack_single_camera container exist.\n Starting open_ptrack_single_camera container ..." && \
+        xhost + && \
         docker start $container_name && \
         docker exec  -ti -e DISPLAY $container_name bash
     fi
