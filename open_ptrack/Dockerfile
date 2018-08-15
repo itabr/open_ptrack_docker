@@ -28,5 +28,3 @@ RUN cd /root/workspace/ros/src/open_ptrack/recognition/install_scripts \
     && mv nn4.small2.v1.t7 ../data/
 
 RUN ln -s /root/workspace/ros/src/open_ptrack /root/open_ptrack
-
-COPY opt_quick_start /root/opt_quick_start
