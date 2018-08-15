@@ -2,12 +2,12 @@
 # Install nvidia-384
 echo "Installing nvidia-384" && \
 sudo apt-get update && \
-sudo apt-get install nvidia-384 && \
+sudo apt-get install -y nvidia-384 && \
 echo "Successfully installed nvidia-384" && \
 # Install Docker
 echo "Installing Docker" && \
 sudo apt-get update && \
-sudo apt-get install \
+sudo apt-get -y install \
     apt-transport-https \
     ca-certificates \
     curl \
