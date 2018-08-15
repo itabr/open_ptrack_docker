@@ -1,6 +1,6 @@
 #!/bin/bash
 
-container_name = "open_ptrack_single_camera"
+container_name="open_ptrack_single_camera"
 
 if [ "$(docker ps -a | grep $container_name)" ]; then
     if [ "$(docker inspect -f {{.State.Running}} $container_name)" ]; then
