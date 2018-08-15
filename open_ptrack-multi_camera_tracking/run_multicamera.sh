@@ -1,8 +1,6 @@
 #!/bin/bash
 
-export ROS_MASTER_URI="http://192.168.100.101:11311/"
-export ROS_IP="192.168.100.101"
-export ROS_PC_NAME="PC1"
+source ros_netwrok.conf
 
 if [[ $ROS_MASTER_URI = *$ROS_IP* ]]; then
         export MACHINE_TYPE="master" && \
