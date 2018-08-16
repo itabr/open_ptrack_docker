@@ -6,17 +6,17 @@ if [ $# -eq 0 ];
 then
     if [ "$(docker ps -a | grep $container_name)" ]; then
         if [ "$(docker inspect -f {{.State.Running}} $container_name)" ]; then
-            echo "open_ptrack_single_camera container is already running. \n Running a new command in open_ptrack_single_camera." && \
+            printf 'open_ptrack_single_camera container is already running. \n Running a new command in open_ptrack_single_camera.' && \
             xhost + && \
             docker exec  -ti -e DISPLAY $container_name bash
         else
-            echo "open_ptrack_single_camera container exist.\n Starting open_ptrack_single_camera container ..." && \
+            printf "open_ptrack_single_camera container exist.\n Starting open_ptrack_single_camera container ..." && \
             xhost + && \
             docker start $container_name && \
             docker exec  -ti -e DISPLAY $container_name bash
         fi
     else
-        echo "open_ptrack_single_camera container does not exist, running a new open_ptrack_single_camera container ..." && \
+        printf "open_ptrack_single_camera container does not exist, running a new open_ptrack_single_camera container ..." && \
         xhost + && \
         sudo docker run \
             --runtime=nvidia \
@@ -39,11 +39,11 @@ else
         case ${opt} in
             r ) 
                 if [ "$(docker ps -a | grep $container_name)" ]; then
-                    echo "removing $container_name"
+                    printf "removing $container_name"
                     docker rm $container_name
                 fi
             ;;
-            \? ) echo "Usage: ./run_singlecamera.sh [-r]"
+            \? ) printf "Usage: ./run_singlecamera.sh [-r]"
             ;;
         esac
     done
