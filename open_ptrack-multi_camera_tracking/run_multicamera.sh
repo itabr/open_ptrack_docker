@@ -2,17 +2,17 @@
 
 container_name="open_ptrack_multi_camera"
 if [ $# -eq 0 ]; then
-    if [ "$(docker ps -a | grep $container_name)" ]; then
+    if [ "$(sudo docker ps -a | grep $container_name)" ]; then
 
-        if [ ! "$(docker inspect -f {{.State.Running}} $container_name)" ]; then
+        if [ ! "$(sudo docker inspect -f {{.State.Running}} $container_name)" ]; then
             printf "$container_name container is already running.\nRunning a new command in $container_name. \n" && \
             xhost + && \
-            docker exec  -ti -e DISPLAY $container_name bash
+            sudo docker exec  -ti -e DISPLAY $container_name bash
         else
             printf "$container_name container exist.\nStarting $container_name container. \n" && \
             xhost + && \
-            docker start $container_name && \
-            docker exec  -ti -e DISPLAY $container_name bash
+            sudo docker start $container_name && \
+            sudo docker exec  -ti -e DISPLAY $container_name bash
         fi
 
     else
@@ -55,16 +55,16 @@ else
     while getopts ":rs" opt; do
         case ${opt} in
             r ) 
-                if [ "$(docker ps -a | grep $container_name)" ]; then
+                if [ "$(sudo docker ps -a | grep $container_name)" ]; then
                     printf "removing $container_name\n"
-                    docker stop $container_name
-                    docker rm $container_name
+                    sudo docker stop $container_name
+                    sudo docker rm $container_name
                 fi
             ;;
             s )
-                if [ "$(docker ps -a | grep $container_name)" ]; then
+                if [ "$(sudo docker ps -a | grep $container_name)" ]; then
                     printf "stoping $container_name\n"
-                    docker stop $container_name
+                    sudo docker stop $container_name
                 fi
             ;;
             \? ) printf "Usage: ./run_multicamera.sh [-r -s]\n-r remove \n-s stop"
