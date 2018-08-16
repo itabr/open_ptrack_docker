@@ -125,75 +125,29 @@ Note : dot (.) is part of the command. It means the current directory.
 open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, open_ptrack itself can run single camera tracking.
 
 **Instructions:**
-```bash
-xhost +
-```
-Build the image :
-```bash
-cd open_ptrack-single_camera_tracking
-sudo docker build -t openptrack/open_ptrack-single_camera_tracking .
-```
-Note : dot (.) is part of the command. It means the current directory.
 
-In the same folder run the container 
-```bash
-sudo docker run --runtime=nvidia \
---rm -ti -e DISPLAY \
--v /tmp/.X11-unix:/tmp/.X11-unix \
---mount type=bind,source=$(pwd)/open_ptrack_config/detection/launch/,destination=/root/workspace/ros/src/open_ptrack/detection/launch/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/detection/conf/,destination=/root/workspace/ros/src/open_ptrack/detection/conf/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/tracking/launch/,destination=/root/workspace/ros/src/open_ptrack/tracking/launch/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/tracking/conf/,destination=/root/workspace/ros/src/open_ptrack/tracking/conf/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ \
---net=host \
---device /dev/bus/usb:/dev/bus/usb \
---name opt-docker-singlecamera openptrack/open_ptrack-single_camera_tracking bash
 ```
+cd single_camera_tracking
+./run_single_camera
+```
+
 
 * ### open_ptrack-multi_camera_tracking 
 open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to setup the configurations required for multi camera tracking.
 
 **Instructions:**
 
-```bash
-xhost +
 ```
-Build the image 
+cd multi_camera_tracking
+```
 
-valid values for MACHINE_TYPE is Server or Client :
+Edit ros_network.config inside multi_camera_tracking to match your system network configuration and then run:
 
-For master machine :
-```bash
-cd open_ptrack-multi_camera_tracking
-sudo docker build --build-arg MACHINE_TYPE="Server" -t openptrack/open_ptrack-multicamera_tracking .
 ```
-For other nodes :
-```bash
-sudo docker build --build-arg MACHINE_TYPE="Client" -t openptrack/open_ptrack-multicamera_tracking .
+./run_multi_camera
 ```
-Note : dot (.) is part of the command. It means the current directory.
 
-In the same folder run the container, you need to change the ROS_MASTER_URI and 
-ROS_IP, ROS_PC_NAME according to your configuration :
-```bash
-sudo docker run --runtime=nvidia --rm -ti -e DISPLAY \
--v /tmp/.X11-unix:/tmp/.X11-unix \
--v $(pwd)/open_ptrack_config/Server/etc/ntp.conf/:/etc/ntp.conf \
---mount type=bind,source=$(pwd)/open_ptrack_config/opt_calibration/launch/,destination=/root/workspace/ros/src/open_ptrack/opt_calibration/launch/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/opt_calibration/conf/,destination=/root/workspace/ros/src/open_ptrack/opt_calibration/conf/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/detection/launch/,destination=/root/workspace/ros/src/open_ptrack/detection/launch/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/detection/conf/,destination=/root/workspace/ros/src/open_ptrack/detection/conf/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/tracking/launch/,destination=/root/workspace/ros/src/open_ptrack/tracking/launch/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/tracking/conf/,destination=/root/workspace/ros/src/open_ptrack/tracking/conf/ \
---mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ \
---net=host \
---device /dev/bus/usb:/dev/bus/usb \
---name opt-docker-multicamera \
--e "ROS_MASTER_URI=http://192.168.100.101:11311/" \
--e "ROS_IP=192.168.100.102" \
--e "ROS_PC_NAME=PC2" \
-openptrack/open_ptrack bash
-```
+After this step follow Time-Synchronization on the wiki [here](https://github.com/OpenPTrack/open_ptrack/wiki/Time-Synchronization) and then continue with the calibration
 
 ## Deployment
 
