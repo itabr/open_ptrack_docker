@@ -57,7 +57,7 @@ if [ $# -eq 0 ]; then
     fi
 
 else
-    while getopts ":r" opt; do
+    while getopts ":rs" opt; do
         case ${opt} in
             r ) 
                 if [ "$(docker ps -a | grep $container_name)" ]; then
@@ -66,7 +66,13 @@ else
                     docker rm $container_name
                 fi
             ;;
-            \? ) printf "Usage: ./run_multicamera.sh [-r]"
+            s )
+                if [ "$(docker ps -a | grep $container_name)" ]; then
+                    printf "stoping $container_name\n"
+                    docker stop $container_name
+                fi
+            ;;
+            \? ) printf "Usage: ./run_multicamera.sh [-r -s]\n-r remove \n-s stop"
             ;;
         esac
     done
