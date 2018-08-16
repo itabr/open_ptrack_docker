@@ -39,6 +39,7 @@ else
         case ${opt} in
             r ) 
                 if [ "$(docker ps -a | grep $container_name)" ]; then
+                    echo "removing $container_name"
                     docker rm $container_name
                 fi
             ;;
