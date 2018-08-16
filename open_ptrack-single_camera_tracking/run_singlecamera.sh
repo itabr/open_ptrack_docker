@@ -2,8 +2,7 @@
 
 container_name="open_ptrack_single_camera"
 
-if [ $# -eq 0 ];
-then
+if [ $# -eq 0 ]; then
     if [ "$(docker ps -a | grep $container_name)" ]; then
         if [ ! "$(docker inspect -f {{.State.Running}} $container_name)" ]; then
             printf "$container_name container is already running.\nRunning a new command in $container_name.\n" && \
@@ -39,7 +38,8 @@ else
         case ${opt} in
             r ) 
                 if [ "$(docker ps -a | grep $container_name)" ]; then
-                    printf "removing $container_name"
+                    printf "removing $container_name\n"
+                    docker stop $container_name
                     docker rm $container_name
                 fi
             ;;
