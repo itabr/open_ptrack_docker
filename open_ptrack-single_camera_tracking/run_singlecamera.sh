@@ -6,17 +6,17 @@ if [ $# -eq 0 ];
 then
     if [ "$(docker ps -a | grep $container_name)" ]; then
         if [ ! "$(docker inspect -f {{.State.Running}} $container_name)" ]; then
-            printf "$container_name container is already running. \n Running a new command in $container_name.\n" && \
+            printf "$container_name container is already running.\nRunning a new command in $container_name.\n" && \
             xhost + && \
             docker exec  -ti -e DISPLAY $container_name bash
         else
-            printf "$container_name container exist.\n Starting $container_name container. \n" && \
+            printf "$container_name container exist.\nStarting $container_name container. \n" && \
             xhost + && \
             docker start $container_name && \
             docker exec  -ti -e DISPLAY $container_name bash
         fi
     else
-        printf "$container_name container does not exist.\n Running a new $container_name container. \n" && \
+        printf "$container_name container does not exist.\nRunning a new $container_name container. \n" && \
         xhost + && \
         sudo docker run \
             --runtime=nvidia \
