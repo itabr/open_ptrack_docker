@@ -20,9 +20,6 @@ if [ $# -eq 0 ]; then
         printf "$container_name container does not exist.\nRunning a new $container_name container. \n" && \
         printf "Loading ROS network configuration\n" && \
 
-        SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" && \
-        . $SCRIPTDIR/ros_network.config;
-
         if [[ $ROS_MASTER_URI = *$ROS_IP* ]]; then
                     export MACHINE_TYPE="master" && \
                     printf "This machine is recognized as master.\n"
@@ -50,9 +47,7 @@ if [ $# -eq 0 ]; then
             --net=host \
             --device /dev/bus/usb:/dev/bus/usb \
             --name $container_name \
-            --env ROS_MASTER_URI \
-            --env ROS_IP \
-            --env ROS_PC_NAME \
+            --env-file ros_network.env
             openptrack/open_ptrack bash     
     fi
 
