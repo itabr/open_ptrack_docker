@@ -5,18 +5,18 @@ container_name="open_ptrack_single_camera"
 if [ $# -eq 0 ];
 then
     if [ "$(docker ps -a | grep $container_name)" ]; then
-        if [ "$(docker inspect -f {{.State.Running}} $container_name)" ]; then
-            printf 'open_ptrack_single_camera container is already running. \n Running a new command in open_ptrack_single_camera.' && \
+        if [ ! "$(docker inspect -f {{.State.Running}} $container_name)" ]; then
+            printf "$container_name container is already running. \n Running a new command in $container_name.\n" && \
             xhost + && \
             docker exec  -ti -e DISPLAY $container_name bash
         else
-            printf "open_ptrack_single_camera container exist.\n Starting open_ptrack_single_camera container ..." && \
+            printf "$container_name container exist.\n Starting $container_name container. \n" && \
             xhost + && \
             docker start $container_name && \
             docker exec  -ti -e DISPLAY $container_name bash
         fi
     else
-        printf "open_ptrack_single_camera container does not exist, running a new open_ptrack_single_camera container ..." && \
+        printf "$container_name container does not exist.\n Running a new $container_name container. \n" && \
         xhost + && \
         sudo docker run \
             --runtime=nvidia \
@@ -31,7 +31,7 @@ then
             --mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ \
             --net=host \
             --device /dev/bus/usb:/dev/bus/usb \
-            --name open_ptrack_single_camera \
+            --name $container_name \
             openptrack/open_ptrack bash
     fi
 else
