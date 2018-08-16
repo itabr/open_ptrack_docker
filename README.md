@@ -186,12 +186,13 @@ sudo docker run --runtime=nvidia --rm -ti -e DISPLAY \
 --mount type=bind,source=$(pwd)/open_ptrack_config/tracking/launch/,destination=/root/workspace/ros/src/open_ptrack/tracking/launch/ \
 --mount type=bind,source=$(pwd)/open_ptrack_config/tracking/conf/,destination=/root/workspace/ros/src/open_ptrack/tracking/conf/ \
 --mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ \
---net=host --device /dev/bus/usb:/dev/bus/usb \
+--net=host \
+--device /dev/bus/usb:/dev/bus/usb \
 --name opt-docker-multicamera \
 -e "ROS_MASTER_URI=http://192.168.100.101:11311/" \
--e "ROS_IP=192.168.100.101" \
--e "ROS_PC_NAME=PC1" \
-openptrack/open_ptrack-multicamera_tracking bash
+-e "ROS_IP=192.168.100.102" \
+-e "ROS_PC_NAME=PC2" \
+openptrack/open_ptrack bash
 ```
 
 ## Deployment
