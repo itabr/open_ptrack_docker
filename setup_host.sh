@@ -7,7 +7,7 @@ echo "Successfully installed nvidia-384" && \
 # Install Docker
 echo "Installing Docker" && \
 sudo apt-get update && \
-sudo apt-get -y install \
+sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
