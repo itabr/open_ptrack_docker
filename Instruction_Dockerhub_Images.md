@@ -10,8 +10,7 @@ The following instructions will get you a copy of the project up and running on 
 ### Prerequisites
 Please visit page : https://github.com/OpenPTrack/open_ptrack_v2/wiki/Supported-Hardware
 
-
-#### Install open_ptrack_docker
+### Installation
 
 Clone the repository:
 
@@ -60,6 +59,7 @@ After successfuly executing above command follow the instructions bellow to run 
 
 ```
 cd single_camera_tracking
+chmod +x run_single_camera
 ./run_single_camera
 ```
 
@@ -71,6 +71,7 @@ cd multi_camera_tracking
 Edit ros_network.config inside multi_camera_tracking to match your system network configuration and then run:
 
 ```
+chmod +x run_multi_camera
 ./run_multi_camera
 ```
 

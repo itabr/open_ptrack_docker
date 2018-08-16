@@ -11,76 +11,64 @@ The following instructions will get you a copy of the project up and running on 
 
 Docker, nvidia driver, nvidia-docker are required to be installed before using open_ptrack docker: 
 
-#### Install Docker
+# OpenPTrack Docker
 
-For updated version look at the Docker official instructions [here](https://docs.docker.com/install/)
+OpenPTrack is an open source project to create a scalable, multi-camera solution for person tracking.
+It enables many people to be tracked over large areas in real time.
 
-```
-sudo apt-get update
+## Getting Started
 
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See Installation for notes on how to deploy the project on a live system.
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+### Prerequisites
+Please visit page : https://github.com/OpenPTrack/open_ptrack_v2/wiki/Supported-Hardware
 
-sudo apt-key fingerprint 0EBFCD88
+### Installation
 
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-sudo apt-get update
-sudo apt-get install docker-ce
+Clone the repository:
 
 ```
-##### Now test docker with hello-world image
-```
-sudo docker run hello-world
-```
-#### Install nvidia driver
-
-```
-sudo apt-get update
-sudo apt-get install nvidia-384
+git clone https://github.com/OpenPTrack/open_ptrack_config.git
+cd open_ptrack_config
 ```
 
-#### Install nvidia-docker 2 
+If you have not yet installed docker and Nvidia docker 2 and nvidia-384 run :
 
-For updated version look at the Nvidia Docker official instructions [here](https://github.com/NVIDIA/nvidia-docker)
-
-##### If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
 ```
-sudo docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
-sudo apt-get purge -y nvidia-docker
+chmod +x setup_host
+./setup_host
 ```
 
-##### Add the package repositories
-```
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
-  sudo apt-key add -
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
-sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-sudo apt-get update
-```
-##### Install nvidia-docker2 and reload the Docker daemon configuration
-```
-sudo apt-get install -y nvidia-docker2
-sudo pkill -SIGHUP dockerd
-```
+After successfully executing setup_host please reboot your system.
+After rebooting your system test nvidia-docker 2 by running
 
-##### reboot your system 
-
-##### Test nvidia-smi with the latest official CUDA image
 ```
 sudo docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 ```
 
-### Installing
+You should see output similar to bellow:
+
+```
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 384.130                Driver Version: 384.130                   |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 750 Ti  Off  | 00000000:01:00.0  On |                  N/A |
+| 40%   31C    P8     1W /  38W |    188MiB /  1998MiB |      1%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
++-----------------------------------------------------------------------------+
+```
+
+After successfuly executing above command follow the instructions bellow to run single_camera_tracking container or multi_camera_tracking container:
+
+### building open_ptrack images
 
 Next you need to build OpenPtrack images:
 
@@ -121,19 +109,20 @@ sudo docker build -t openptrack/open_ptrack --build-arg branch=iss21 .
 
 Note : dot (.) is part of the command. It means the current directory.
 
-* ### open_ptrack-single_camera_tracking 
-open_ptrack-single_camera_tracking is an image for single camera tracking, although to run single camera tracking it is not neccesserly to use this image, open_ptrack itself can run single camera tracking.
+After successfuly executing above command follow the instructions bellow to run single_camera_tracking container or multi_camera_tracking container:
+
+* ### single_camera_tracking 
 
 **Instructions:**
 
 ```
 cd single_camera_tracking
+chmod +x run_single_camera
 ./run_single_camera
 ```
 
 
-* ### open_ptrack-multi_camera_tracking 
-open_ptrack-multi_camera_tracking is an image for multi camera tracking,  this image needs to be built to setup the configurations required for multi camera tracking.
+* ### multi_camera_tracking 
 
 **Instructions:**
 
@@ -144,6 +133,7 @@ cd multi_camera_tracking
 Edit ros_network.config inside multi_camera_tracking to match your system network configuration and then run:
 
 ```
+chmod +x run_multi_camera
 ./run_multi_camera
 ```
 
