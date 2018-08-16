@@ -19,7 +19,7 @@ if [ $# -eq 0 ]; then
 
         printf "$container_name container does not exist.\nRunning a new $container_name container. \n" && \
         printf "Loading ROS network configuration\n" && \
-
+        export $(cat ros_network.env | xargs)
         if [[ $ROS_MASTER_URI = *$ROS_IP* ]]; then
                     export MACHINE_TYPE="master" && \
                     printf "This machine is recognized as master.\n"
@@ -46,8 +46,8 @@ if [ $# -eq 0 ]; then
             --mount type=bind,source=$(pwd)/open_ptrack_config/yolo_detector/launch/,destination=/root/workspace/ros/src/open_ptrack/yolo_detector/launch/ \
             --net=host \
             --device /dev/bus/usb:/dev/bus/usb \
+            --env-file ros_network.env \
             --name $container_name \
-            --env-file ros_network.env
             openptrack/open_ptrack bash     
     fi
 
