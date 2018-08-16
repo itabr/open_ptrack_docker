@@ -37,7 +37,10 @@ then
 else
     while getopts ":r" opt; do
         case ${opt} in
-            r ) docker rm $container_name
+            r ) 
+                if [ "$(docker ps -a | grep $container_name)" ]; then
+                    docker rm $container_name
+                fi
             ;;
             \? ) echo "Usage: ./run_singlecamera.sh [-r]"
             ;;
