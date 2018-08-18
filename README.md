@@ -72,7 +72,7 @@ After successfuly executing above command follow the instructions bellow to run 
 
 Next you need to build OpenPtrack images:
 
-This project contains four different images : open_ptrack-dep, open_ptrack, open_ptrack-single_camera_tracking, open_ptrack-multi_camera_tracking
+This project contains two images : open_ptrack-dep, open_ptrack
 
 Clone the repository: 
 ```
