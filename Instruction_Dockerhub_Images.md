@@ -15,7 +15,7 @@ Please visit page : https://github.com/OpenPTrack/open_ptrack_v2/wiki/Supported-
 Clone the repository:
 
 ```
-git clone https://github.com/OpenPTrack/open_ptrack_config.git
+git clone https://github.com/OpenPTrack/open_ptrack_docker_config.git
 cd open_ptrack_config
 ```
 
@@ -84,4 +84,4 @@ After this step follow Time-Synchronization on the wiki [here](https://github.co
 
 ## Authors
 
-* **Samir Tabriz** - *Initial work* - [itabr](https://github.com/itabr/)
+* **Samir Tabriz** - [itabr](https://github.com/itabr/)
