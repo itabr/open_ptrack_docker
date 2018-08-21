@@ -76,8 +76,8 @@ This project contains two images : open_ptrack-dep, open_ptrack
 
 Clone the repository: 
 ```
-git clone https://github.com/itabr/open_ptrack_docker.git
-cd open_ptrack_docker
+git clone https://github.com/OpenPTrack/open_ptrack_v2.git
+cd open_ptrack_v2/docker/
 ```
 
 * ### open_ptrack-dep
@@ -121,7 +121,6 @@ chmod +x run_single_camera
 ./run_single_camera
 ```
 
-
 * ### multi_camera_tracking 
 
 **Instructions:**
@@ -153,4 +152,4 @@ docker exec  -ti -e DISPLAY container-name bash
 
 ## Authors
 
-* **Samir Tabriz** - *Initial work* - [itabr](https://github.com/itabr/)
+* **Samir Tabriz** - [itabr](https://github.com/itabr/)
