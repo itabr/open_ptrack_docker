@@ -138,13 +138,6 @@ chmod +x run_multi_camera
 
 After this step follow Time-Synchronization on the wiki [here](https://github.com/OpenPTrack/open_ptrack/wiki/Time-Synchronization) and then continue with the calibration
 
-## Deployment
-
-You can use bellow command to Run a command in a running container:
-```
-docker exec  -ti -e DISPLAY container-name bash
-```
-
 ## Built With
 
 * [Docker](https://www.docker.com/) - Container platform provider
