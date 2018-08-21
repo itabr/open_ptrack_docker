@@ -63,6 +63,10 @@ chmod +x run_single_camera
 ./run_single_camera
 ```
 
+Usage: ./run_singlecamera.sh [-r -s]
+-r remove container 
+-s stop container
+
 #### multi_camera_tracking:
 ```
 cd multi_camera_tracking
@@ -74,6 +78,10 @@ Edit ros_network.config inside multi_camera_tracking to match your system networ
 chmod +x run_multi_camera
 ./run_multi_camera
 ```
+
+Usage: ./run_multicamera.sh [-r -s]
+-r remove container
+-s stop container
 
 After this step follow Time-Synchronization on the wiki [here](https://github.com/OpenPTrack/open_ptrack/wiki/Time-Synchronization) and then continue with the calibration
 
