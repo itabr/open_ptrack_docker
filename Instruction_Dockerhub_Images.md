@@ -12,19 +12,20 @@ Please visit page : https://github.com/OpenPTrack/open_ptrack_v2/wiki/Supported-
 
 ### Installation
 
-Clone the repository:
+Clone the open_ptrack_docker_config repository:
 
 ```
 git clone https://github.com/OpenPTrack/open_ptrack_docker_config.git
 cd open_ptrack_config
 ```
 
-If you have not yet installed docker and Nvidia docker 2 and nvidia-384 run :
+If you have not yet installed docker and Nvidia docker 2 and nvidia-384 execute the following:
 
 ```
 chmod +x setup_host
 ./setup_host
 ```
+./setup_host will install docker and Nvidia docker 2 and nvidia-384 driver. 
 
 After successfully executing setup_host please reboot your system.
 After rebooting your system test nvidia-docker 2 by running
