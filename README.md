@@ -15,8 +15,8 @@ Please visit page : https://github.com/OpenPTrack/open_ptrack_v2/wiki/Supported-
 Clone the repository:
 
 ```
-git clone https://github.com/OpenPTrack/open_ptrack_config.git
-cd open_ptrack_config
+git clone https://github.com/OpenPTrack/open_ptrack_docker_config.git
+cd open_ptrack_docker_config
 ```
 
 If you have not yet installed docker and Nvidia docker 2 and nvidia-384 run :
@@ -104,7 +104,7 @@ After successfuly executing above command follow the instructions bellow to run 
 **Instructions:**
 
 ```
-cd ~/open_ptrack_config
+cd ~/open_ptrack_docker_config
 cd single_camera_tracking
 chmod +x run_single_camera
 ./run_single_camera
@@ -115,7 +115,7 @@ chmod +x run_single_camera
 **Instructions:**
 
 ```
-cd ~/open_ptrack_config
+cd ~/open_ptrack_docker_config
 cd multi_camera_tracking
 ```
 
