@@ -68,13 +68,12 @@ You should see output similar to bellow:
 
 After successfuly executing above command follow the instructions bellow to run single_camera_tracking container or multi_camera_tracking container:
 
-### building open_ptrack images
+### Building open_ptrack images
+if you want to build open_ptrack images locally please follow the bellow instructions else skip to the next step.
 
-Next you need to build OpenPtrack images:
+This project contains two images : open_ptrack-dep, open_ptrack. Dockerfiles for both images are located in open_ptrack_v2/docker/
 
-This project contains two images : open_ptrack-dep, open_ptrack
-
-Clone the repository: 
+Clone the open_ptrack_v2 repository: 
 ```
 git clone https://github.com/OpenPTrack/open_ptrack_v2.git
 cd open_ptrack_v2/docker/
@@ -93,7 +92,7 @@ sudo docker build -t openptrack/open_ptrack-dep .
 Note : dot (.) is part of the command. It means the current directory.
 
 * ### open_ptrack
-open_ptrack is based on open_ptrack-dep and it is the base image for open_ptrack-single_camera_tracking and open_ptrack-multi_camera_tracking. this image includes open_ptrack installation.
+open_ptrack is based on open_ptrack-dep. this image includes open_ptrack installation.
 
 **Instructions:**
 Build the image :
@@ -104,28 +103,32 @@ sudo docker build -t openptrack/open_ptrack .
 or to change a branch
 ```bash
 cd open_ptrack
-sudo docker build -t openptrack/open_ptrack --build-arg branch=iss21 .
+sudo docker build -t openptrack/open_ptrack --build-arg branch=branch_name .
 ```
 
 Note : dot (.) is part of the command. It means the current directory.
 
-After successfuly executing above command follow the instructions bellow to run single_camera_tracking container or multi_camera_tracking container:
+After successfuly executing above command follow the instructions bellow to run single_camera_tracking container or multi_camera_tracking container.
 
-* ### single_camera_tracking 
+### Running containers
+
+#### single_camera_tracking 
 
 **Instructions:**
 
 ```
+cd ~/open_ptrack_config
 cd single_camera_tracking
 chmod +x run_single_camera
 ./run_single_camera
 ```
 
-* ### multi_camera_tracking 
+#### multi_camera_tracking 
 
 **Instructions:**
 
 ```
+cd ~/open_ptrack_config
 cd multi_camera_tracking
 ```
 
@@ -136,7 +139,7 @@ chmod +x run_multi_camera
 ./run_multi_camera
 ```
 
-After this step follow Time-Synchronization on the wiki [here](https://github.com/OpenPTrack/open_ptrack/wiki/Time-Synchronization) and then continue with the calibration
+After this step follow Time-Synchronization on the wiki [here](https://github.com/OpenPTrack/open_ptrack/wiki/Time-Synchronization) and continue with the calibration.
 
 ## Built With
 
