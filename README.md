@@ -12,7 +12,7 @@ Please visit page : https://github.com/OpenPTrack/open_ptrack_v2/wiki/Supported-
 
 ### Installation
 
-Clone the repository:
+Clone the open_ptrack_docker_config repository:
 
 ```
 git clone https://github.com/OpenPTrack/open_ptrack_docker_config.git
@@ -26,7 +26,7 @@ chmod +x setup_host
 ./setup_host
 ```
 
-After successfully executing setup_host please reboot your system.
+After successfully executing setup_host please **reboot** your system.
 After rebooting your system test nvidia-docker 2 by running
 
 ```
